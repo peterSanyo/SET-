@@ -11,6 +11,10 @@
 		45550FD02ADD306500AD97F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45550FCF2ADD306500AD97F2 /* ContentView.swift */; };
 		45550FD22ADD306600AD97F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45550FD12ADD306600AD97F2 /* Assets.xcassets */; };
 		45550FD52ADD306600AD97F2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45550FD42ADD306600AD97F2 /* Preview Assets.xcassets */; };
+		45550FDF2ADD335400AD97F2 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45550FDE2ADD335400AD97F2 /* GameLogic.swift */; };
+		45550FE32ADD342500AD97F2 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45550FE22ADD342500AD97F2 /* SetGame.swift */; };
+		45550FE52ADD35B900AD97F2 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45550FE42ADD35B900AD97F2 /* CardView.swift */; };
+		45550FE72ADD374C00AD97F2 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45550FE62ADD374C00AD97F2 /* Cardify.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,10 @@
 		45550FCF2ADD306500AD97F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		45550FD12ADD306600AD97F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45550FD42ADD306600AD97F2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		45550FDE2ADD335400AD97F2 /* GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
+		45550FE22ADD342500AD97F2 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
+		45550FE42ADD35B900AD97F2 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		45550FE62ADD374C00AD97F2 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +61,10 @@
 			children = (
 				45550FCD2ADD306500AD97F2 /* SET_App.swift */,
 				45550FCF2ADD306500AD97F2 /* ContentView.swift */,
+				45550FE42ADD35B900AD97F2 /* CardView.swift */,
+				45550FE62ADD374C00AD97F2 /* Cardify.swift */,
+				45550FE12ADD340200AD97F2 /* ViewModel */,
+				45550FDD2ADD32B600AD97F2 /* Model */,
 				45550FD12ADD306600AD97F2 /* Assets.xcassets */,
 				45550FD32ADD306600AD97F2 /* Preview Content */,
 			);
@@ -65,6 +77,22 @@
 				45550FD42ADD306600AD97F2 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		45550FDD2ADD32B600AD97F2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				45550FDE2ADD335400AD97F2 /* GameLogic.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		45550FE12ADD340200AD97F2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				45550FE22ADD342500AD97F2 /* SetGame.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +165,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45550FE72ADD374C00AD97F2 /* Cardify.swift in Sources */,
 				45550FD02ADD306500AD97F2 /* ContentView.swift in Sources */,
+				45550FDF2ADD335400AD97F2 /* GameLogic.swift in Sources */,
+				45550FE32ADD342500AD97F2 /* SetGame.swift in Sources */,
 				45550FCE2ADD306500AD97F2 /* SET_App.swift in Sources */,
+				45550FE52ADD35B900AD97F2 /* CardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
