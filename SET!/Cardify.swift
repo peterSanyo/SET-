@@ -18,7 +18,7 @@ struct Cardify: ViewModifier {
                 .overlay(content)
                 .opacity(isFaceUp ? 1 : 0)
             
-            baseRectangle.fill(Constants.customLinearGradient)
+            baseRectangle.fill(.indigo.opacity(0.7))
                 .opacity(isFaceUp ? 0 : 1)
                 
         }
@@ -28,19 +28,6 @@ struct Cardify: ViewModifier {
     private struct Constants {
         static let cornerRadius: CGFloat = 12
         static let lineWidth: CGFloat = 2
-        
-        static let customGradient: Gradient = Gradient(stops: [
-            .init(color: Color("skyBlue"), location: 0.2),
-            .init(color: Color("waterBlue"), location: 0.4),
-            .init(color: Color("sunRed"), location: 0.8),
-            .init(color: Color("dawnRed"), location: 1.0)
-        ])
-        
-        static let customLinearGradient: LinearGradient = LinearGradient(
-            gradient: customGradient,
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
     }
 }
 

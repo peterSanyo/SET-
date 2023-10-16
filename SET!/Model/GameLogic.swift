@@ -37,13 +37,14 @@ extension Card.Shape {
     var sfSymbolName: String {
         switch self {
         case .diamond:
-            return "suit.diamond"
+            return "suit.diamond.fill"
         case .squiggle:
-            return "waveform"
+            return "rectangle.fill"
         case .oval:
-            return "oval"
+            return "oval.fill"
         }
     }
+    
 }
 
 extension Card.CardColor {
@@ -61,7 +62,7 @@ extension Card.Shading {
         switch self {
         case .solid: return 1
         case .striped: return 0.5
-        case .open: return 0
+        case .open: return 0.1
         }
     }
 }
