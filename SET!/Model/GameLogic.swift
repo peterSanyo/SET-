@@ -33,39 +33,6 @@ struct Card: Identifiable {
     }
 }
 
-extension Card.Shape {
-    var sfSymbolName: String {
-        switch self {
-        case .diamond:
-            return "suit.diamond.fill"
-        case .squiggle:
-            return "rectangle.fill"
-        case .oval:
-            return "oval.fill"
-        }
-    }
-    
-}
-
-extension Card.CardColor {
-    func toColor() -> Color {
-        switch self {
-        case .red: return Color.red
-        case .green: return Color.green
-        case .purple: return Color.purple
-        }
-    }
-}
-
-extension Card.Shading {
-    func toOpacity() -> Double {
-        switch self {
-        case .solid: return 1
-        case .striped: return 0.5
-        case .open: return 0.1
-        }
-    }
-}
 
 
 func isSet(cards: [Card]) -> Bool {
