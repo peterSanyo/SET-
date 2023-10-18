@@ -7,19 +7,6 @@
 
 import SwiftUI
 
-extension Card.Shape {
-    var sfSymbolName: String {
-        switch self {
-        case .diamond:
-            return "suit.diamond.fill"
-        case .squiggle:
-            return "rectangle.fill"
-        case .oval:
-            return "oval.fill"
-        }
-    }
-}
-
 extension Card.CardColor {
     func toColor() -> Color {
         switch self {
@@ -31,11 +18,11 @@ extension Card.CardColor {
 }
 
 extension Card.Shading {
-    func toOpacity() -> Double {
-        switch self {
+    func shadingOpacity(for shading: Card.Shading) -> Double {
+        switch shading {
         case .solid: return 1
         case .striped: return 0.5
-        case .open: return 0.1
+        case .open: return 0.0
         }
     }
 }
@@ -69,4 +56,53 @@ class SetGameViewModel: ObservableObject {
     func select(card: Card) {
         // Implement selection logic, and check if three cards make a set.
     }
+    // MARK: UI
+    
+    private func diamondPath(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+        path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.midY))
+        path.closeSubpath()
+        return path
+    }
+    
+    private func rectanglePath(in rect: CGRect) -> Path {
+        return Path(rect)
+    }
+    
+    private func ovalPath(in rect: CGRect) -> Path {
+        return Path(ellipseIn: rect)
+    }
+    
+    func path(for shape: Card.Shape, in rect: CGRect) -> Path {
+            switch shape {
+            case .diamond:
+                return diamondPath(in: rect)
+            case .squiggle:
+                return rectanglePath(in: rect)
+            case .oval:
+                return ovalPath(in: rect)
+            }
+        }
+    
+    func color(for cardColor: Card.CardColor) -> Color {
+            switch cardColor {
+            case .red: return Color.red
+            case .green: return Color.green
+            case .purple: return Color.purple
+            }
+        }
+    
+//    func path(in rect: CGRect) -> Path {
+//        switch self {
+//        case .diamond:
+//            return diamondPath(in: rect)
+//        case .squiggle:
+//            return rectanglePath(in: rect)
+//        case .oval:
+//            return ovalPath(in: rect)
+//        }
+//    }
 }
