@@ -25,7 +25,7 @@ struct CardView: View {
         .padding()
     }
 }
-
+// nobody is gonna know 
 
 
 
