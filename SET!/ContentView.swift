@@ -15,7 +15,7 @@ struct ContentView: View {
         }
         .padding()
     }
-    //gg
+    //nobody is gonna know
 }
 
 //struct ContentView_Previews: PreviewProvider {
