@@ -21,7 +21,7 @@ struct CardView: View {
                     .padding(5)
             }
         }
-        .cardify(isFaceUp: true) // Assuming you have this cardify modifier elsewhere in your code.
+        .cardify(isFaceUp: true)
         .padding()
     }
 }

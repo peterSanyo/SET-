@@ -11,16 +11,14 @@ struct ContentView: View {
     @ObservedObject var viewModel: SetGameViewModel
     var body: some View {
         VStack {
-//            CardView(card: Card)
+            CardView(card: Card)
         }
         .padding()
     }
-    // nobody is gonna know
-    // they're gonna know !
 }
 
-// struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-////        ContentView()
-//    }
-// }
+ struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(viewModel: viewModel)
+    }
+ }
