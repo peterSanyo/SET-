@@ -20,12 +20,10 @@ struct Cardify: ViewModifier {
             
             baseRectangle.fill(.indigo.opacity(0.7))
                 .opacity(isFaceUp ? 0 : 1)
-                
         }
-        
     }
     
-    private struct Constants {
+    private enum Constants {
         static let cornerRadius: CGFloat = 12
         static let lineWidth: CGFloat = 2
     }

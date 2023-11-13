@@ -15,12 +15,12 @@ struct ContentView: View {
         }
         .padding()
     }
-    //nobody is gonna know
+    // nobody is gonna know
     // they're gonna know !
 }
 
-//struct ContentView_Previews: PreviewProvider {
+// struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {
 ////        ContentView()
 //    }
-//}
+// }

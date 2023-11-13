@@ -13,35 +13,33 @@ struct Card: Identifiable {
     var shape: Shape
     var shading: Shading
     var color: CardColor
-    
+
     enum Number: Int, CaseIterable, Hashable {
         case one = 1
         case two = 2
         case three = 3
     }
-    
+
     enum Shape: CaseIterable, Hashable {
         case diamond, squiggle, oval
     }
-    
+
     enum Shading: CaseIterable, Hashable {
         case solid, striped, open
     }
-    
+
     enum CardColor: CaseIterable, Hashable {
         case red, green, purple
     }
 }
 
-
-
 func isSet(cards: [Card]) -> Bool {
     guard cards.count == 3 else { return false }
-    
+
     return isSameOrDifferent(\.number, cards) &&
-           isSameOrDifferent(\.shape, cards) &&
-           isSameOrDifferent(\.shading, cards) &&
-           isSameOrDifferent(\.color, cards)
+        isSameOrDifferent(\.shape, cards) &&
+        isSameOrDifferent(\.shading, cards) &&
+        isSameOrDifferent(\.color, cards)
 }
 
 func isSameOrDifferent<T: Hashable>(_ keyPath: KeyPath<Card, T>, _ cards: [Card]) -> Bool {

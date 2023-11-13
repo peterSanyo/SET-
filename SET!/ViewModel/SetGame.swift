@@ -56,6 +56,7 @@ class SetGameViewModel: ObservableObject {
     func select(card: Card) {
         // Implement selection logic, and check if three cards make a set.
     }
+
     // MARK: UI
     
     private func diamondPath(in rect: CGRect) -> Path {
@@ -77,23 +78,23 @@ class SetGameViewModel: ObservableObject {
     }
     
     func path(for shape: Card.Shape, in rect: CGRect) -> Path {
-            switch shape {
-            case .diamond:
-                return diamondPath(in: rect)
-            case .squiggle:
-                return rectanglePath(in: rect)
-            case .oval:
-                return ovalPath(in: rect)
-            }
+        switch shape {
+        case .diamond:
+            return diamondPath(in: rect)
+        case .squiggle:
+            return rectanglePath(in: rect)
+        case .oval:
+            return ovalPath(in: rect)
         }
+    }
     
     func color(for cardColor: Card.CardColor) -> Color {
-            switch cardColor {
-            case .red: return Color.red
-            case .green: return Color.green
-            case .purple: return Color.purple
-            }
+        switch cardColor {
+        case .red: return Color.red
+        case .green: return Color.green
+        case .purple: return Color.purple
         }
+    }
     
 //    func path(in rect: CGRect) -> Path {
 //        switch self {

@@ -27,8 +27,6 @@ struct ShapeView: View {
     }
 }
 
-
-
 struct ShapeView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = SetGameViewModel()

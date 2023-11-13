@@ -10,11 +10,11 @@ import SwiftUI
 struct CardView: View {
     @ObservedObject var viewModel: SetGameViewModel
     var card: Card
-    let symbolSize: CGSize = CGSize(width: 100, height: 100)
+    let symbolSize: CGSize = .init(width: 100, height: 100)
 
     var body: some View {
         VStack {
-            ForEach(0..<card.number.rawValue, id: \.self) { _ in
+            ForEach(0 ..< card.number.rawValue, id: \.self) { _ in
                 ShapeView(viewModel: viewModel, shape: card.shape, shading: card.shading)
                     .foregroundColor(viewModel.color(for: card.color))
                     .frame(width: symbolSize.width, height: symbolSize.height)
@@ -25,9 +25,6 @@ struct CardView: View {
         .padding()
     }
 }
-// nobody is gonna know 
-
-
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
@@ -38,7 +35,7 @@ struct CardView_Previews: PreviewProvider {
             shading: .striped,
             color: .red
         )
-        
+
         return CardView(viewModel: viewModel, card: sampleCard)
     }
 }
