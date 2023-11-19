@@ -7,59 +7,34 @@
 
 import SwiftUI
 
-extension Card.CardColor {
-    func toColor() -> Color {
-        switch self {
-        case .red: return Color.red
-        case .green: return Color.green
-        case .purple: return Color.purple
-        }
-    }
-}
-
-extension Card.Shading {
-    func shadingOpacity(for shading: Card.Shading) -> Double {
-        switch shading {
-        case .solid: return 1
-        case .striped: return 0.5
-        case .open: return 0.0
-        }
-    }
-}
-
 class SetGameViewModel: ObservableObject {
-    @Published private(set) var cards: [Card] = []
+    @Published private var game: GameLogic
     @Published private(set) var selectedCards: [Card] = []
     
     init() {
-        cards = createDeck()
-        cards.shuffle()
-    }
-    
-    func createDeck() -> [Card] {
-        var deck: [Card] = []
-        
-        for number in Card.Number.allCases {
-            for shape in Card.Shape.allCases {
-                for shading in Card.Shading.allCases {
-                    for color in Card.CardColor.allCases {
-                        let card = Card(number: number, shape: shape, shading: shading, color: color)
-                        deck.append(card)
-                    }
-                }
-            }
-        }
-        
-        return deck
+        self.game = GameLogic()
+        game.shuffle()
     }
     
     func select(card: Card) {
-        // Implement selection logic, and check if three cards make a set.
+        if selectedCards.contains(card) {
+            // Remove card from selected if it's already selected
+            selectedCards.removeAll { $0.id == card.id }
+        } else {
+            selectedCards.append(card)
+            if selectedCards.count == 3 {
+                if game.isSet(cards: selectedCards) {
+                    // Handle logic for a valid set
+                    // You might want to update score or other game states here
+                }
+                // Clear or update the selected cards array based on your game rules
+            }
+        }
     }
 
-    // MARK: UI
-    
-    private func diamondPath(in rect: CGRect) -> Path {
+    // MARK: - Drawing Shapes
+
+    private func createDiamondPath(in rect: CGRect) -> Path {
         var path = Path()
         path.move(to: CGPoint(x: rect.midX, y: rect.minY))
         path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
@@ -80,7 +55,7 @@ class SetGameViewModel: ObservableObject {
     func path(for shape: Card.Shape, in rect: CGRect) -> Path {
         switch shape {
         case .diamond:
-            return diamondPath(in: rect)
+            return createDiamondPath(in: rect)
         case .squiggle:
             return rectanglePath(in: rect)
         case .oval:
@@ -88,7 +63,9 @@ class SetGameViewModel: ObservableObject {
         }
     }
     
-    func color(for cardColor: Card.CardColor) -> Color {
+    // MARK: - Coloring Shapes
+    
+    func applyColoring(for cardColor: Card.Color) -> Color {
         switch cardColor {
         case .red: return Color.red
         case .green: return Color.green
@@ -96,14 +73,13 @@ class SetGameViewModel: ObservableObject {
         }
     }
     
-//    func path(in rect: CGRect) -> Path {
-//        switch self {
-//        case .diamond:
-//            return diamondPath(in: rect)
-//        case .squiggle:
-//            return rectanglePath(in: rect)
-//        case .oval:
-//            return ovalPath(in: rect)
-//        }
-//    }
+    // MARK: - Shading Shapes
+    
+    func applyShadingOpacity(for shading: Card.Shading) -> Double {
+        switch shading {
+        case .solid: return 1
+        case .striped: return 0.5
+        case .open: return 0.0
+        }
+    }
 }
