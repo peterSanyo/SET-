@@ -8,28 +8,14 @@
 import SwiftUI
 
 class SetGameViewModel: ObservableObject {
-    @Published private var game: GameLogic
-    @Published private(set) var selectedCards: [Card] = []
+    @Published private var gameLogic = GameLogic()
     
-    init() {
-        self.game = GameLogic()
-        game.shuffle()
+    var deck: [Card] {
+        return gameLogic.deck
     }
     
-    func select(card: Card) {
-        if selectedCards.contains(card) {
-            // Remove card from selected if it's already selected
-            selectedCards.removeAll { $0.id == card.id }
-        } else {
-            selectedCards.append(card)
-            if selectedCards.count == 3 {
-                if game.isSet(cards: selectedCards) {
-                    // Handle logic for a valid set
-                    // You might want to update score or other game states here
-                }
-                // Clear or update the selected cards array based on your game rules
-            }
-        }
+    func createSetGame() {
+        gameLogic = GameLogic()
     }
 
     // MARK: - Drawing Shapes

@@ -10,9 +10,13 @@ import SwiftUI
 struct GameLogic {
     private(set) var deck: [Card]
     private(set) var score = 0
+    private(set) var selectedCards: [Card] = []
+    
 
     init() {
         var createdDeck: [Card] = []
+
+        selectedCards.removeAll()
 
         for number in Card.Number.allCases {
             for shape in Card.Shape.allCases {
@@ -24,51 +28,42 @@ struct GameLogic {
                 }
             }
         }
+
         self.deck = createdDeck
     }
 
-    mutating func isSet(cards: [Card]) -> Bool {
+    mutating func isValidSetOfCards(cards: [Card]) -> Bool {
         guard cards.count == 3 else { return false }
 
-        return isSameOrDifferent(\.number, cards) &&
-            isSameOrDifferent(\.shape, cards) &&
-            isSameOrDifferent(\.shading, cards) &&
-            isSameOrDifferent(\.color, cards)
+        return isPropertyUniformOrDistinct(\.number, cards) &&
+            isPropertyUniformOrDistinct(\.shape, cards) &&
+            isPropertyUniformOrDistinct(\.shading, cards) &&
+            isPropertyUniformOrDistinct(\.color, cards)
     }
 
-    private func isSameOrDifferent<T: Hashable>(_ keyPath: KeyPath<Card, T>, _ cards: [Card]) -> Bool {
+    private func isPropertyUniformOrDistinct<T: Hashable>(_ keyPath: KeyPath<Card, T>, _ cards: [Card]) -> Bool {
         let values = cards.map { $0[keyPath: keyPath] }
         let uniqueValues = Set(values)
         return uniqueValues.count == 1 || uniqueValues.count == cards.count
     }
     
+    mutating func select(card: Card) {
+        if selectedCards.contains(card) {
+            // Remove card from selected if it's already selected
+            selectedCards.removeAll { $0.id == card.id }
+        } else {
+            selectedCards.append(card)
+            if selectedCards.count == 3 {
+                if isValidSetOfCards(cards: selectedCards) {
+                    // Handle logic for a valid set
+                    // You might want to update score or other game states here
+                }
+                // Clear or update the selected cards array based on your game rules
+            }
+        }
+    }
+
     mutating func shuffle() {
         deck.shuffle()
-    }
-}
-
-struct Card: Identifiable, Equatable {
-    var id = UUID()
-    var number: Number
-    var shape: Shape
-    var shading: Shading
-    var color: Color
-
-    enum Number: Int, CaseIterable, Hashable {
-        case one = 1
-        case two = 2
-        case three = 3
-    }
-
-    enum Shape: CaseIterable, Hashable {
-        case diamond, squiggle, oval
-    }
-
-    enum Shading: CaseIterable, Hashable {
-        case solid, striped, open
-    }
-
-    enum Color: CaseIterable, Hashable {
-        case red, green, purple
     }
 }

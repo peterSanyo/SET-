@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var viewModel: SetGameViewModel
-    
+    @ObservedObject var setGame: SetGameViewModel
+
     var body: some View {
         VStack {
-            ForEach(viewModel.cards) { card in
-                CardView(card: card)
+            ForEach(setGame.deck) { card in
+                CardView(viewModel: setGame, card: card)
             }
         }
         .padding()
@@ -22,6 +22,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(viewModel: SetGameViewModel())
+        ContentView(setGame: SetGameViewModel())
     }
 }

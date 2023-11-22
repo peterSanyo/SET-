@@ -8,7 +8,7 @@ import SwiftUI
 
 struct Cardify: ViewModifier {
     let isFaceUp: Bool
-    
+
     func body(content: Content) -> some View {
         ZStack {
             let baseRectangle = RoundedRectangle(cornerRadius: Constants.cornerRadius, style: .continuous)
@@ -17,12 +17,12 @@ struct Cardify: ViewModifier {
                 .background(baseRectangle.fill(.white))
                 .overlay(content)
                 .opacity(isFaceUp ? 1 : 0)
-            
+
             baseRectangle.fill(.indigo.opacity(0.7))
                 .opacity(isFaceUp ? 0 : 1)
         }
     }
-    
+
     private enum Constants {
         static let cornerRadius: CGFloat = 12
         static let lineWidth: CGFloat = 2

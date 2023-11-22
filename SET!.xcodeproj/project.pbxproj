@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45283FBE2B0E2E940027E9A0 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45283FBD2B0E2E940027E9A0 /* AspectVGrid.swift */; };
+		45283FC02B0E2EBF0027E9A0 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45283FBF2B0E2EBF0027E9A0 /* Card.swift */; };
 		4554898A2AE00DB200EF47AF /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455489892AE00DB200EF47AF /* ShapeView.swift */; };
 		45550FCE2ADD306500AD97F2 /* SET_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45550FCD2ADD306500AD97F2 /* SET_App.swift */; };
 		45550FD02ADD306500AD97F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45550FCF2ADD306500AD97F2 /* ContentView.swift */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		45283FBD2B0E2E940027E9A0 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
+		45283FBF2B0E2EBF0027E9A0 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		455489892AE00DB200EF47AF /* ShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeView.swift; sourceTree = "<group>"; };
 		45550FCA2ADD306500AD97F2 /* SET!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SET!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45550FCD2ADD306500AD97F2 /* SET_App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SET_App.swift; sourceTree = "<group>"; };
@@ -66,6 +70,7 @@
 				45550FE42ADD35B900AD97F2 /* CardView.swift */,
 				455489892AE00DB200EF47AF /* ShapeView.swift */,
 				45550FE62ADD374C00AD97F2 /* Cardify.swift */,
+				45283FBD2B0E2E940027E9A0 /* AspectVGrid.swift */,
 				45550FE12ADD340200AD97F2 /* ViewModel */,
 				45550FDD2ADD32B600AD97F2 /* Model */,
 				45550FD12ADD306600AD97F2 /* Assets.xcassets */,
@@ -86,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				45550FDE2ADD335400AD97F2 /* GameLogic.swift */,
+				45283FBF2B0E2EBF0027E9A0 /* Card.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -168,6 +174,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45283FBE2B0E2E940027E9A0 /* AspectVGrid.swift in Sources */,
+				45283FC02B0E2EBF0027E9A0 /* Card.swift in Sources */,
 				45550FE72ADD374C00AD97F2 /* Cardify.swift in Sources */,
 				45550FD02ADD306500AD97F2 /* ContentView.swift in Sources */,
 				45550FDF2ADD335400AD97F2 /* GameLogic.swift in Sources */,

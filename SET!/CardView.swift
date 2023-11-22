@@ -16,7 +16,7 @@ struct CardView: View {
         VStack {
             ForEach(0 ..< card.number.rawValue, id: \.self) { _ in
                 ShapeView(viewModel: viewModel, shape: card.shape, shading: card.shading)
-                    .foregroundColor(viewModel.color(for: card.color))
+                    .foregroundColor(viewModel.applyColoring(for: card.color))
                     .frame(width: symbolSize.width, height: symbolSize.height)
                     .padding(5)
             }
