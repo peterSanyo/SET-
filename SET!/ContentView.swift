@@ -11,9 +11,29 @@ struct ContentView: View {
     @ObservedObject var setGame: SetGameViewModel
 
     var body: some View {
-        AspectVGrid(setGame.displayedCards, aspectRatio: 2/3) { card in
-                   CardView(viewModel: setGame, card: card)
-               }
+        VStack {
+            
+            AspectVGrid(setGame.displayedCards, aspectRatio: 2/3) { card in
+                CardView(viewModel: setGame, card: card)
+                    .padding(2)
+            }
+            
+            HStack {
+                Spacer()
+                Text("Score: \(setGame.score)")
+                    .font(.title)
+                Spacer()
+                Button("Shuffle") {
+                    setGame.shuffle()
+                }
+                .buttonStyle(.automatic)
+                Spacer()
+            }
+            .frame(maxHeight: 50)
+            
+            
+        }
+        .padding()
     }
     
 }

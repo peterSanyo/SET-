@@ -29,7 +29,7 @@ struct GameLogic {
             for shape in Card.Shape.allCases {
                 for shading in Card.Shading.allCases {
                     for color in Card.Color.allCases {
-                        let card = Card(number: number, shape: shape, shading: shading, color: color)
+                        var card = Card(number: number, shape: shape, shading: shading, color: color)
                         createdDeck.append(card)
                     }
                 }
@@ -55,13 +55,24 @@ struct GameLogic {
     }
 
     mutating func select(card: Card) {
-        if currentlySelected.contains(card) {
-            currentlySelected.removeAll { $0.id == card.id }
-        } else {
-            currentlySelected.append(card)
+        if let index = deckOfCards.firstIndex(where: { $0.id == card.id }) {
+            deckOfCards[index].isSelected.toggle() // Toggle the selection state
+
+            if deckOfCards[index].isSelected {
+                currentlySelected.append(deckOfCards[index])
+            } else {
+                currentlySelected.removeAll { $0.id == card.id }
+            }
+
             if currentlySelected.count == 3 {
                 if isValidSetOfCards(cards: currentlySelected) {
                     handleValidSet()
+                }
+                // Reset the isSelected state for the selected cards
+                currentlySelected.forEach { selectedCard in
+                    if let selectedIndex = deckOfCards.firstIndex(where: { $0.id == selectedCard.id }) {
+                        deckOfCards[selectedIndex].isSelected = false
+                    }
                 }
                 currentlySelected.removeAll()
             }
@@ -69,6 +80,7 @@ struct GameLogic {
         print("currentlySelected: \(currentlySelected)")
         print("stackOfSets: \(stackOfSets)")
     }
+
 
     private mutating func handleValidSet() {
         stackOfSets.append(contentsOf: currentlySelected)
@@ -83,6 +95,8 @@ struct GameLogic {
     }
 
     mutating func shuffle() {
-        deckOfCards.shuffle()
+        withAnimation {
+            deckOfCards.shuffle()
+        }
     }
 }

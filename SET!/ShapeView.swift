@@ -11,6 +11,7 @@ struct ShapeView: View {
     var shape: Card.Shape
     var shading: Card.Shading
     var color: Card.Color
+    let symbolAspectRatio: CGFloat
 
     var body: some View {
         GeometryReader { geometry in
@@ -27,32 +28,10 @@ struct ShapeView: View {
                     .fill(fillColor).opacity(viewModel.applyShadingOpacity(for: shading))
             }
         }
-        .minimumScaleFactor(1 / 20)
+        .minimumScaleFactor(1)
         .multilineTextAlignment(.center)
-        .aspectRatio(1, contentMode: .fit)
-//        .rotationEffect(.degrees(card.isMatched ? 360 : 0))
+        .aspectRatio(symbolAspectRatio, contentMode: .fill)
+        //       .rotationEffect(.degrees(card.isMatched ? 360 : 0))
 //        .animation(.spin(duration: 1), value: card.isMatched)
-    }
-}
-
-
-
-struct ShapeView_Previews: PreviewProvider {
-    static var previews: some View {
-        let viewModel = SetGameViewModel()
-        ScrollView {
-            ForEach(Card.Shape.allCases, id: \.self) { shape in
-                ForEach(Card.Shading.allCases, id: \.self) { shading in
-                    ForEach(Card.Color.allCases, id: \.self) { color in
-                        ShapeView(viewModel: viewModel, shape: shape, shading: shading, color: color)
-                            .frame(width: 100, height: 150) // Example small size
-                            .previewDisplayName("Small - \(shape) \(shading) \(color)")
-                        ShapeView(viewModel: viewModel, shape: shape, shading: shading, color: color)
-                            .frame(width: 200, height: 300) // Example large size
-                            .previewDisplayName("Large - \(shape) \(shading) \(color)")
-                    }
-                }
-            }
-        }
     }
 }

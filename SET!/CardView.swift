@@ -10,7 +10,6 @@ import SwiftUI
 struct CardView: View {
     @ObservedObject var viewModel: SetGameViewModel
     var card: Card
-    let symbolSize: CGSize = .init(width: 100, height: 100)
 
     var body: some View {
         ZStack {
@@ -20,16 +19,16 @@ struct CardView: View {
                 .background(card.isSelected ? baseRectangle.fill(.gray.opacity(0.3)) : baseRectangle.fill(.white))
             VStack {
                 ForEach(0 ..< card.number.rawValue, id: \.self) { _ in
-
-                    ShapeView(viewModel: viewModel, shape: card.shape, shading: card.shading, color: card.color)
-                        .frame(width: symbolSize.width, height: symbolSize.height)
-                        .padding()
-
+                    ShapeView(viewModel: viewModel, shape: card.shape, shading: card.shading, color: card.color, symbolAspectRatio: Constants.symbolAspectRatio)
+                        .aspectRatio(Constants.symbolAspectRatio, contentMode: .fit)
                 }
             }
-            .onTapGesture {
-                viewModel.select(card)
-            }
+            .padding()
+
+        }
+        .aspectRatio(Constants.cardAspectRatio, contentMode: .fit) // Set a consistent aspect ratio for all cards
+        .onTapGesture {
+            viewModel.select(card)
         }
     }
 
@@ -37,6 +36,8 @@ struct CardView: View {
         static let cornerRadius: CGFloat = 12
         static let unselectedLineWidth: CGFloat = 2
         static let selectedLineWidth: CGFloat = 5
+        static let cardAspectRatio: CGFloat = 2 / 3 // Example aspect ratio
+        static let symbolAspectRatio: CGFloat = 1 // Symbol aspect ratio
     }
 }
 
