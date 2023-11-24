@@ -15,7 +15,7 @@ struct ShapeView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            let lineWidth: CGFloat = 3
+            let lineWidth: CGFloat = 2
             let insetRect = CGRect(origin: .zero, size: geometry.size).insetBy(dx: lineWidth / 2, dy: lineWidth / 2)
             let path = viewModel.path(for: shape, in: shading == .open ? insetRect : CGRect(origin: .zero, size: geometry.size))
             let fillColor = viewModel.applyColoring(for: color)
@@ -30,7 +30,7 @@ struct ShapeView: View {
         }
         .minimumScaleFactor(1)
         .multilineTextAlignment(.center)
-        .aspectRatio(symbolAspectRatio, contentMode: .fill)
+        .aspectRatio(symbolAspectRatio, contentMode: .fit)
         //       .rotationEffect(.degrees(card.isMatched ? 360 : 0))
 //        .animation(.spin(duration: 1), value: card.isMatched)
     }

@@ -11,7 +11,7 @@ struct GameLogic {
     private(set) var deckOfCards: [Card]
 
     var displayedCards: [Card] {
-        Array(deckOfCards.prefix(80))
+        Array(deckOfCards.prefix(20))
     }
 
     private(set) var currentlySelected: [Card] = []

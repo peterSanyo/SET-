@@ -26,7 +26,7 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
                 atAspectRatio: aspectRatio
             )
             LazyVGrid(columns: [GridItem(.adaptive(minimum: gridItemSize), spacing: 5)], spacing: 5) {
-                ForEach(items) { item in
+                ForEach(items, id: \.id) { item in
                     content(item)
                         .aspectRatio(aspectRatio, contentMode: .fit)
                 }
@@ -39,18 +39,27 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
         size: CGSize,
         atAspectRatio aspectRatio: CGFloat
     ) -> CGFloat {
-        let maxColumnCount: CGFloat = 6 // Maximum number of columns
-        var columnCount: CGFloat = 1
-        repeat {
-            let width = size.width / columnCount
+        let minColumnCount: CGFloat = 5 // Minimum number of columns
+        let maxRowCount: CGFloat = 5 // Maximum number of rows
+        var columnCount: CGFloat = minColumnCount // Start with the minimum number of columns
+
+        // Iterate to find the best fit
+        for currentColumnCount in stride(from: minColumnCount, through: CGFloat(count), by: 1) {
+            let width = size.width / currentColumnCount
             let height = width / aspectRatio
-                
-            let rowCount = (CGFloat(count) / columnCount).rounded(.up)
-            if rowCount * height <= size.height || columnCount == maxColumnCount {
-                return floor(size.width / columnCount)
+            let rowCount = (CGFloat(count) / currentColumnCount).rounded(.up)
+
+            // Check if the number of rows exceeds the maximum allowed
+            if rowCount <= maxRowCount {
+                // If it fits within the height, return this width
+                if rowCount * height <= size.height {
+                    return floor(width)
+                }
             }
-            columnCount += 1
-        } while columnCount <= maxColumnCount
-        return floor(size.width / maxColumnCount)
+        }
+
+        // If no fitting configuration is found, return the best guess
+        return floor(size.width / columnCount)
     }
+
 }

@@ -12,12 +12,9 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            ScrollView {
                 AspectVGrid(setGame.displayedCards, aspectRatio: 2/3) { card in
                     CardView(viewModel: setGame, card: card)
                 }
-            }
-            
             HStack {
                 Spacer()
                 Text("Score: \(setGame.score)")
@@ -29,13 +26,9 @@ struct ContentView: View {
                 .buttonStyle(.automatic)
                 Spacer()
             }
-            .frame(maxHeight: 50)
-            
-            
         }
         .padding()
     }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {

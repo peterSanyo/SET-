@@ -23,10 +23,10 @@ struct CardView: View {
                         .aspectRatio(Constants.symbolAspectRatio, contentMode: .fit)
                 }
             }
-            .padding()
-
+            .padding(10)
         }
-        .aspectRatio(Constants.cardAspectRatio, contentMode: .fit)         .onTapGesture {
+        .aspectRatio(Constants.cardAspectRatio, contentMode: .fit)
+        .onTapGesture {
             viewModel.select(card)
         }
     }
