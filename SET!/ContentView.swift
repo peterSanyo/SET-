@@ -11,13 +11,11 @@ struct ContentView: View {
     @ObservedObject var setGame: SetGameViewModel
 
     var body: some View {
-        VStack {
-            ForEach(setGame.deck) { card in
-                CardView(viewModel: setGame, card: card)
-            }
-        }
-        .padding()
+        AspectVGrid(setGame.displayedCards, aspectRatio: 2/3) { card in
+                   CardView(viewModel: setGame, card: card)
+               }
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

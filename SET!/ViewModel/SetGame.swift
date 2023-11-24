@@ -1,4 +1,3 @@
-//
 //  SetGame.swift
 //  SET!
 //
@@ -10,12 +9,35 @@ import SwiftUI
 class SetGameViewModel: ObservableObject {
     @Published private var gameLogic = GameLogic()
     
-    var deck: [Card] {
-        return gameLogic.deck
+    var score: Int {
+        gameLogic.score
     }
+    
+    var deckOfCards: [Card] {
+        gameLogic.deckOfCards
+    }
+    
+    var displayedCards: [Card] {
+        gameLogic.displayedCards
+    }
+    
+    var currentlySelected: [Card] {
+        gameLogic.currentlySelected
+    }
+    
+    // MARK: - Helper Functions
     
     func createSetGame() {
         gameLogic = GameLogic()
+    }
+    
+    
+    func shuffle() {
+        gameLogic.shuffle()
+    }
+    
+    func select(_ card: Card) {
+        gameLogic.select(card: card)
     }
 
     // MARK: - Drawing Shapes

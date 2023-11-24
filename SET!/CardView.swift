@@ -13,16 +13,30 @@ struct CardView: View {
     let symbolSize: CGSize = .init(width: 100, height: 100)
 
     var body: some View {
-        VStack {
-            ForEach(0 ..< card.number.rawValue, id: \.self) { _ in
-                ShapeView(viewModel: viewModel, shape: card.shape, shading: card.shading)
-                    .foregroundColor(viewModel.applyColoring(for: card.color))
-                    .frame(width: symbolSize.width, height: symbolSize.height)
-                    .padding(5)
+        ZStack {
+            let baseRectangle = RoundedRectangle(cornerRadius: Constants.cornerRadius, style: .continuous)
+
+            baseRectangle.strokeBorder(lineWidth: card.isSelected ? Constants.selectedLineWidth : Constants.unselectedLineWidth)
+                .background(card.isSelected ? baseRectangle.fill(.gray.opacity(0.3)) : baseRectangle.fill(.white))
+            VStack {
+                ForEach(0 ..< card.number.rawValue, id: \.self) { _ in
+
+                    ShapeView(viewModel: viewModel, shape: card.shape, shading: card.shading, color: card.color)
+                        .frame(width: symbolSize.width, height: symbolSize.height)
+                        .padding()
+
+                }
+            }
+            .onTapGesture {
+                viewModel.select(card)
             }
         }
-        .cardify(isFaceUp: true)
-        .padding()
+    }
+
+    private enum Constants {
+        static let cornerRadius: CGFloat = 12
+        static let unselectedLineWidth: CGFloat = 2
+        static let selectedLineWidth: CGFloat = 5
     }
 }
 
@@ -33,9 +47,10 @@ struct CardView_Previews: PreviewProvider {
             number: .three,
             shape: .oval,
             shading: .solid,
-            color: .purple
+            color: .purple,
+            isSelected: false
         )
 
-         CardView(viewModel: viewModel, card: sampleCard)
+        CardView(viewModel: viewModel, card: sampleCard)
     }
 }

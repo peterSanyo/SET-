@@ -8,15 +8,22 @@
 import SwiftUI
 
 struct GameLogic {
-    private(set) var deck: [Card]
-    private(set) var score = 0
-    private(set) var selectedCards: [Card] = []
-    
+    private(set) var deckOfCards: [Card]
+
+    var displayedCards: [Card] {
+        Array(deckOfCards.prefix(12))
+    }
+
+    private(set) var currentlySelected: [Card] = []
+    private(set) var stackOfSets: [Card] = []
+
+    var score: Int {
+        stackOfSets.count
+    }
 
     init() {
         var createdDeck: [Card] = []
-
-        selectedCards.removeAll()
+        currentlySelected.removeAll()
 
         for number in Card.Number.allCases {
             for shape in Card.Shape.allCases {
@@ -29,7 +36,7 @@ struct GameLogic {
             }
         }
 
-        self.deck = createdDeck
+        self.deckOfCards = createdDeck.shuffled()
     }
 
     mutating func isValidSetOfCards(cards: [Card]) -> Bool {
@@ -46,24 +53,36 @@ struct GameLogic {
         let uniqueValues = Set(values)
         return uniqueValues.count == 1 || uniqueValues.count == cards.count
     }
-    
+
     mutating func select(card: Card) {
-        if selectedCards.contains(card) {
-            // Remove card from selected if it's already selected
-            selectedCards.removeAll { $0.id == card.id }
+        if currentlySelected.contains(card) {
+            currentlySelected.removeAll { $0.id == card.id }
         } else {
-            selectedCards.append(card)
-            if selectedCards.count == 3 {
-                if isValidSetOfCards(cards: selectedCards) {
-                    // Handle logic for a valid set
-                    // You might want to update score or other game states here
+            currentlySelected.append(card)
+            if currentlySelected.count == 3 {
+                if isValidSetOfCards(cards: currentlySelected) {
+                    handleValidSet()
                 }
-                // Clear or update the selected cards array based on your game rules
+                currentlySelected.removeAll()
             }
+        }
+        print("currentlySelected: \(currentlySelected)")
+        print("stackOfSets: \(stackOfSets)")
+    }
+
+    private mutating func handleValidSet() {
+        stackOfSets.append(contentsOf: currentlySelected)
+        deckOfCards.removeAll { card in
+            currentlySelected.contains(where: { $0.id == card.id })
         }
     }
 
+    // Optional: Implement a method to deal additional cards if needed
+    private mutating func dealAdditionalCardsIfNeeded() {
+        // Deal additional cards logic
+    }
+
     mutating func shuffle() {
-        deck.shuffle()
+        deckOfCards.shuffle()
     }
 }
