@@ -32,10 +32,10 @@ struct CardView_Previews: PreviewProvider {
         let sampleCard = Card(
             number: .three,
             shape: .oval,
-            shading: .striped,
-            color: .red
+            shading: .solid,
+            color: .purple
         )
 
-        return CardView(viewModel: viewModel, card: sampleCard)
+         CardView(viewModel: viewModel, card: sampleCard)
     }
 }

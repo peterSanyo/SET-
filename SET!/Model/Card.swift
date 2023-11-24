@@ -7,8 +7,6 @@
 
 import Foundation
 
-// MARK: - Card
-
 struct Card: Identifiable, Equatable {
     var id = UUID()
     var number: Number
