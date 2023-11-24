@@ -16,7 +16,8 @@ struct CardView: View {
             let baseRectangle = RoundedRectangle(cornerRadius: Constants.cornerRadius, style: .continuous)
 
             baseRectangle.strokeBorder(lineWidth: card.isSelected ? Constants.selectedLineWidth : Constants.unselectedLineWidth)
-                .background(card.isSelected ? baseRectangle.fill(.gray.opacity(0.3)) : baseRectangle.fill(.white))
+                .background(backgroundForMatchState(card.matchState))
+
             VStack {
                 ForEach(0 ..< card.number.rawValue, id: \.self) { _ in
                     ShapeView(viewModel: viewModel, shape: card.shape, shading: card.shading, color: card.color, symbolAspectRatio: Constants.symbolAspectRatio)
@@ -28,6 +29,19 @@ struct CardView: View {
         .aspectRatio(Constants.cardAspectRatio, contentMode: .fit)
         .onTapGesture {
             viewModel.select(card: card)
+        }
+    }
+
+    private func backgroundForMatchState(_ matchState: Card.MatchState) -> Color {
+        switch matchState {
+        case .matched:
+            return Color.green.opacity(0.2)
+        case .mismatched:
+            return Color.red.opacity(0.2)
+        case .selected:
+            return Color.gray.opacity(0.2)
+        default:
+            return Color.white // Or any default color
         }
     }
 

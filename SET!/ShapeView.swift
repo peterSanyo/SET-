@@ -17,13 +17,13 @@ struct ShapeView: View {
         GeometryReader { geometry in
             let lineWidth: CGFloat = 2
             let insetRect = CGRect(origin: .zero, size: geometry.size).insetBy(dx: lineWidth / 2, dy: lineWidth / 2)
-            let path = viewModel.path(for: shape, in: shading == .open ? insetRect : CGRect(origin: .zero, size: geometry.size))
+            let path = viewModel.drawPath(for: shape, in: shading == .open ? insetRect : CGRect(origin: .zero, size: geometry.size))
             let fillColor = viewModel.applyColoring(for: color)
             
             if shading == .open {
                 path.stroke(fillColor, lineWidth: lineWidth)
             } else {
-                viewModel.path(for: shape, in: CGRect(origin: .zero, size: geometry.size))
+                viewModel.drawPath(for: shape, in: CGRect(origin: .zero, size: geometry.size))
                     .stroke(fillColor, lineWidth: lineWidth)
                     .fill(fillColor).opacity(viewModel.applyShadingOpacity(for: shading))
             }
