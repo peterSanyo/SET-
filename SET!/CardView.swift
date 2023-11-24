@@ -26,8 +26,7 @@ struct CardView: View {
             .padding()
 
         }
-        .aspectRatio(Constants.cardAspectRatio, contentMode: .fit) // Set a consistent aspect ratio for all cards
-        .onTapGesture {
+        .aspectRatio(Constants.cardAspectRatio, contentMode: .fit)         .onTapGesture {
             viewModel.select(card)
         }
     }

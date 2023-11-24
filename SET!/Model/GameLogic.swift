@@ -11,7 +11,7 @@ struct GameLogic {
     private(set) var deckOfCards: [Card]
 
     var displayedCards: [Card] {
-        Array(deckOfCards.prefix(12))
+        Array(deckOfCards.prefix(80))
     }
 
     private(set) var currentlySelected: [Card] = []
@@ -29,7 +29,7 @@ struct GameLogic {
             for shape in Card.Shape.allCases {
                 for shading in Card.Shading.allCases {
                     for color in Card.Color.allCases {
-                        var card = Card(number: number, shape: shape, shading: shading, color: color)
+                        let card = Card(number: number, shape: shape, shading: shading, color: color)
                         createdDeck.append(card)
                     }
                 }
