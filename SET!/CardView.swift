@@ -27,7 +27,7 @@ struct CardView: View {
         }
         .aspectRatio(Constants.cardAspectRatio, contentMode: .fit)
         .onTapGesture {
-            viewModel.select(card)
+            viewModel.select(card: card)
         }
     }
 
