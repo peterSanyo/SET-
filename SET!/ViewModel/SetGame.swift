@@ -37,6 +37,8 @@ class SetGameViewModel: ObservableObject {
         gameLogic.shuffle()
     }
     
+    // MARK: Selection Management
+
     func select(card: Card) {
         // Toggle the card's selection in the game logic
         gameLogic.toggleCardSelection(card: card)
@@ -53,8 +55,8 @@ class SetGameViewModel: ObservableObject {
             
             // Handle the set if it's a valid match
             if isMatch {
-                    print("currently selected: \(selectedCards)")
-                    self.gameLogic.handleValidSet(selectedCards: selectedCards) // Passing selectedCards here
+                print("currently selected: \(selectedCards)")
+                gameLogic.handleValidSet(selectedCards: selectedCards) // Passing selectedCards here
             }
 
             // Reset the selection after a delay
@@ -62,13 +64,8 @@ class SetGameViewModel: ObservableObject {
                 self.gameLogic.resetSelection()
             }
         }
-
         print("deckOfCards: \(deckOfCards.count)")
     }
-
-
-
-
     
     // MARK: - Drawing Shapes
     
