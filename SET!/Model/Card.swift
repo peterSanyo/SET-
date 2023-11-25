@@ -13,8 +13,6 @@ struct Card: Identifiable, Equatable {
     var shape: Shape
     var shading: Shading
     var color: Color
-    
-    var isSelected = false
     var matchState: MatchState = .unselected
 
     enum Number: Int, CaseIterable, Hashable {
@@ -30,7 +28,7 @@ struct Card: Identifiable, Equatable {
     }
 
     enum Color: CaseIterable, Hashable {
-        case red, green, purple
+        case red, green, blue
     }
 
     enum MatchState {

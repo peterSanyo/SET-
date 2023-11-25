@@ -7,7 +7,12 @@
 import SwiftUI
 
 class SetGameViewModel: ObservableObject {
-    @Published var gameLogic = GameLogic()
+    @Published var gameLogic = GameLogic() {
+        didSet {
+            objectWillChange.send()
+        }
+    }
+    
     @Published private(set) var currentlySelected: [Card] = []
     
     var score: Int {
@@ -33,34 +38,37 @@ class SetGameViewModel: ObservableObject {
     }
     
     func select(card: Card) {
+        // Toggle the card's selection in the game logic
         gameLogic.toggleCardSelection(card: card)
-        let isSelected = gameLogic.deckOfCards.first(where: { $0.id == card.id })?.isSelected ?? false
-        
-        if isSelected {
-            currentlySelected.append(card)
-            gameLogic.updateCardMatchState(card: card, to: .selected)
-        } else {
-            currentlySelected.removeAll { $0.id == card.id }
-            gameLogic.updateCardMatchState(card: card, to: .unselected)
-        }
-        
-        if currentlySelected.count == 3 {
-            let isMatch = gameLogic.isValidSetOfCards(cards: currentlySelected)
-            for selectedCard in currentlySelected {
+
+        // Check if there are three selected cards and handle them
+        let selectedCards = gameLogic.deckOfCards.filter { $0.matchState == .selected }
+        if selectedCards.count == 3 {
+            let isMatch = gameLogic.isValidSetOfCards(cards: selectedCards)
+            
+            // Update the match state of each selected card
+            for selectedCard in selectedCards {
                 gameLogic.updateMatchState(of: selectedCard, to: isMatch ? .matched : .mismatched)
             }
             
+            // Handle the set if it's a valid match
             if isMatch {
-                gameLogic.handleValidSet()
+                    print("currently selected: \(selectedCards)")
+                    self.gameLogic.handleValidSet(selectedCards: selectedCards) // Passing selectedCards here
             }
-            
+
+            // Reset the selection after a delay
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.gameLogic.resetSelection()
-                self.currentlySelected.removeAll()
             }
         }
+
+        print("deckOfCards: \(deckOfCards.count)")
     }
-    
+
+
+
+
     
     // MARK: - Drawing Shapes
     
@@ -99,7 +107,7 @@ class SetGameViewModel: ObservableObject {
         switch cardColor {
         case .red: return Color.red
         case .green: return Color.green
-        case .purple: return Color.purple
+        case .blue: return Color.blue
         }
     }
     

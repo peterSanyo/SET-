@@ -40,8 +40,8 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
         atAspectRatio aspectRatio: CGFloat
     ) -> CGFloat {
         let minColumnCount: CGFloat = 5 // Minimum number of columns
-        let maxRowCount: CGFloat = 5 // Maximum number of rows
-        var columnCount: CGFloat = minColumnCount // Start with the minimum number of columns
+        let maxRowCount: CGFloat = 8 // Maximum number of rows
+        let columnCount: CGFloat = minColumnCount // Start with the minimum number of columns
 
         // Iterate to find the best fit
         for currentColumnCount in stride(from: minColumnCount, through: CGFloat(count), by: 1) {

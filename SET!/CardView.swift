@@ -15,7 +15,7 @@ struct CardView: View {
         ZStack {
             let baseRectangle = RoundedRectangle(cornerRadius: Constants.cornerRadius, style: .continuous)
 
-            baseRectangle.strokeBorder(lineWidth: card.isSelected ? Constants.selectedLineWidth : Constants.unselectedLineWidth)
+            baseRectangle.strokeBorder(lineWidth: card.matchState == .selected ? Constants.selectedLineWidth : Constants.unselectedLineWidth)
                 .background(backgroundForMatchState(card.matchState))
 
             VStack {
@@ -61,8 +61,7 @@ struct CardView_Previews: PreviewProvider {
             number: .three,
             shape: .oval,
             shading: .solid,
-            color: .purple,
-            isSelected: false
+            color: .blue
         )
 
         CardView(viewModel: viewModel, card: sampleCard)
