@@ -115,16 +115,14 @@ struct GameLogic {
     /// - Parameters:
     ///    -  selectedCards : An array of `Card` objects that form a valid set.
     mutating func handleValidatedSet(_ selectedCards: [Card]) {
-        // Remove selectedCards from deckOfCards
-        deckOfCards.removeAll { selectedCards.contains($0) }
+        deckOfCards.removeAll { card in
+            selectedCards.contains { selectedCard in
+                selectedCard.id == card.id
+            }
+        }
         score += 1
     }
 
-    
-    
-    
-    
-    
     // TODO: Implement a method to deal additional cards if needed
     private mutating func dealAdditionalCardsIfNeeded() {
         // Deal additional cards logic

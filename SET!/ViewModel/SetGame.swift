@@ -51,31 +51,38 @@ class SetGameViewModel: ObservableObject {
     // MARK: Selection Management
 
     func select(card: Card) {
+        print("before selectionManagement deckOfCards: \(deckOfCards.count)")
+
         // Toggle the card's selection in the game logic
         toggleSelectedCard(card)
+        print("card toggeled")
 
         // Check if there are three selected cards and handle them
         let selectedCards = deckOfCards.filter { $0.matchState == .selected }
         if selectedCards.count == 3 {
+            print("checking for valid Set")
             let isMatch = checkForValidSetOfCards(selectedCards)
-            
+            print("set is valid")
             // Update the match state of each selected card
             for selectedCard in selectedCards {
                 updateMatchState(of: selectedCard, to: isMatch ? .matched : .mismatched)
             }
+            print("updated matchStates for selected Set")
             
             // Handle the set if it's a valid match
+            print("about to handle validated Set")
             if isMatch {
-                print("currently selected: \(selectedCards)")
                 handleValidatedSet(selectedCards)
             }
+            print("after handling: deckOfCards: \(deckOfCards.count)")
 
             // Reset the selection after a delay
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.unselectAllCards()
             }
+            print("deselect all cards(?)")
         }
-        print("deckOfCards: \(deckOfCards.count)")
+        print("after selectionManagement deckOfCards: \(deckOfCards.count)")
     }
     
     // MARK: - Drawing Shapes
