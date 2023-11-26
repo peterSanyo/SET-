@@ -48,33 +48,31 @@ class SetGameViewModel: ObservableObject {
         gameLogic.handleValidatedSet(selectedCards)
     }
     
-//    func updateMatchState
-    
     // MARK: Selection Management
 
     func select(card: Card) {
         // Toggle the card's selection in the game logic
-        gameLogic.toggleSelectedCard(card)
+        toggleSelectedCard(card)
 
         // Check if there are three selected cards and handle them
-        let selectedCards = gameLogic.deckOfCards.filter { $0.matchState == .selected }
+        let selectedCards = deckOfCards.filter { $0.matchState == .selected }
         if selectedCards.count == 3 {
-            let isMatch = gameLogic.checkForValidSetOfCards(selectedCards)
+            let isMatch = checkForValidSetOfCards(selectedCards)
             
             // Update the match state of each selected card
             for selectedCard in selectedCards {
-                gameLogic.updateMatchState(of: selectedCard, to: isMatch ? .matched : .mismatched)
+                updateMatchState(of: selectedCard, to: isMatch ? .matched : .mismatched)
             }
             
             // Handle the set if it's a valid match
             if isMatch {
                 print("currently selected: \(selectedCards)")
-                gameLogic.handleValidatedSet(selectedCards)
+                handleValidatedSet(selectedCards)
             }
 
             // Reset the selection after a delay
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.gameLogic.unselectAllCards()
+                self.unselectAllCards()
             }
         }
         print("deckOfCards: \(deckOfCards.count)")
