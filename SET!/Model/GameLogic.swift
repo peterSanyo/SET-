@@ -25,11 +25,6 @@ import SwiftUI
 
 struct GameLogic {
     private(set) var deckOfCards: [Card]
-
-    var displayedCards: [Card] {
-        Array(deckOfCards.prefix(20))
-    }
-
     private(set) var score = 0
 
     init() {
@@ -53,22 +48,20 @@ struct GameLogic {
         deckOfCards.shuffle()
     }
 
-    // MARK: - Selection Handling
+    // MARK: - Selection
 
     /// Toggles the selection state of a card in the game.
     ///
     /// If the card is already selected, it will be marked as unselected, and vice versa.
     /// - Parameter card: The `Card` object whose selection state needs to be toggled.
-    mutating func toggleCardSelection(card: Card) {
+    mutating func toggleSelectedCard(_ card: Card) {
         if let index = deckOfCards.firstIndex(where: { $0.id == card.id }) {
             deckOfCards[index].matchState = deckOfCards[index].matchState == .selected ? .unselected : .selected
         }
     }
 
-    /// Resets the selection state of all cards in the game.
-    ///
     /// Sets the `matchState` of all cards in `deckOfCards` to `.unselected`.
-    mutating func resetSelection() {
+    mutating func unselectAllCards() {
         for index in deckOfCards.indices {
             deckOfCards[index].matchState = .unselected
         }
@@ -94,13 +87,13 @@ struct GameLogic {
     /// A set is valid if the properties of the cards are either all the same or all different.
     /// - Parameter cards: An array of `Card` objects to be validated.
     /// - Returns: `true` if the set of cards is valid; otherwise, `false`.
-    mutating func isValidSetOfCards(cards: [Card]) -> Bool {
+    mutating func checkForValidSetOfCards(_ cards: [Card]) -> Bool {
         guard cards.count == 3 else { return false }
 
-        return isPropertyUniformOrDistinct(\.number, cards) &&
-            isPropertyUniformOrDistinct(\.shape, cards) &&
-            isPropertyUniformOrDistinct(\.shading, cards) &&
-            isPropertyUniformOrDistinct(\.color, cards)
+        return isPropertyConsistentlyUniformOrDistinct(keyPath: \.number, for: cards) &&
+            isPropertyConsistentlyUniformOrDistinct(keyPath: \.shape, for: cards) &&
+            isPropertyConsistentlyUniformOrDistinct(keyPath: \.shading, for: cards) &&
+            isPropertyConsistentlyUniformOrDistinct(keyPath: \.color, for: cards)
     }
 
     /// Determines whether properties of the given cards are either all uniform or all distinct.
@@ -109,39 +102,30 @@ struct GameLogic {
     ///   - keyPath: The key path to the property of `Card` to be checked.
     ///   - cards: An array of `Card` objects to be evaluated.
     /// - Returns: `true` if the values are all the same or all distinct; otherwise, `false`.
-    private func isPropertyUniformOrDistinct<T: Hashable>(_ keyPath: KeyPath<Card, T>, _ cards: [Card]) -> Bool {
+    func isPropertyConsistentlyUniformOrDistinct<T: Hashable>(keyPath: KeyPath<Card, T>, for cards: [Card]) -> Bool {
         let values = cards.map { $0[keyPath: keyPath] }
         let uniqueValues = Set(values)
         return uniqueValues.count == 1 || uniqueValues.count == cards.count
     }
 
-    // MARK: - Set Handling
+    // MARK: - Handling
 
-    /// Checks and handles a valid set of selected cards.
+    /// Removes the matched cards from `deckOfCards` and updates the score.
     ///
-    /// If three cards are selected, it checks if they form a valid set and handles the set accordingly.
-    private mutating func checkAndHandleValidSet() {
-        let selectedCards = deckOfCards.filter { $0.matchState == .selected }
-        if selectedCards.count == 3 {
-            if isValidSetOfCards(cards: selectedCards) {
-                handleValidSet(selectedCards: selectedCards)
-            } else {
-                // Handle mismatch logic if needed
-            }
-        }
-    }
-
-    /// Handles the actions to be taken when a valid set is identified.
-    ///
-    /// This includes removing the matched cards from `deckOfCards` and updating the score.
-    /// - Parameter selectedCards: An array of `Card` objects that form a valid set.
-    mutating func handleValidSet(selectedCards: [Card]) {
+    /// - Parameters:
+    ///    -  selectedCards : An array of `Card` objects that form a valid set.
+    mutating func handleValidatedSet(_ selectedCards: [Card]) {
         // Remove selectedCards from deckOfCards
         deckOfCards.removeAll { selectedCards.contains($0) }
-        score += 10
+        score += 1
     }
 
-    // Optional: Implement a method to deal additional cards if needed
+    
+    
+    
+    
+    
+    // TODO: Implement a method to deal additional cards if needed
     private mutating func dealAdditionalCardsIfNeeded() {
         // Deal additional cards logic
     }
