@@ -45,12 +45,14 @@ class SetGameViewModel: ObservableObject {
     }
     
     func handleValidatedSet(_ selectedCards: [Card]) {
-        gameLogic.handleValidatedSet(selectedCards)
+        withAnimation {
+            gameLogic.handleValidatedSet(selectedCards)
+        }
     }
     
     // MARK: Selection Management
 
-    func select(card: Card) {
+    private func select(card: Card) {
         print("before selectionManagement deckOfCards: \(deckOfCards.count)")
 
         // Toggle the card's selection in the game logic
@@ -72,11 +74,12 @@ class SetGameViewModel: ObservableObject {
             // Handle the set if it's a valid match
             print("about to handle validated Set")
             if isMatch {
-                handleValidatedSet(selectedCards)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.handleValidatedSet(selectedCards)
+                }
             }
             print("after handling: deckOfCards: \(deckOfCards.count)")
 
-            // Reset the selection after a delay
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.unselectAllCards()
             }
