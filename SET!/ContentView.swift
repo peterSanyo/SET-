@@ -12,6 +12,8 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
+            Text("SET!")
+                .font(.largeTitle)
             AspectVGrid(setGame.displayedCards, aspectRatio: 2 / 3) { card in
                 CardView(viewModel: setGame, card: card)
             }
@@ -21,13 +23,14 @@ struct ContentView: View {
                 Text("Score: \(setGame.score)")
                     .font(.title)
                 Spacer()
-                Button("Shuffle") {
-                    setGame.shuffle()
+                Button("Restart") {
+                    setGame.restartGame()
                 }
                 Spacer()
-                Button("Deal More Cards") {
+                Button("Deal") {
                     setGame.dealAdditionalCards()
                 }
+                Spacer()
             }
         }
         .padding()

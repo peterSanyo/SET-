@@ -33,7 +33,6 @@ struct GameLogic {
 
     init() {
         var createdDeck: [Card] = []
-
         for number in Card.Number.allCases {
             for shape in Card.Shape.allCases {
                 for shading in Card.Shading.allCases {
@@ -44,9 +43,27 @@ struct GameLogic {
                 }
             }
         }
-
         deckOfCards = createdDeck.shuffled()
+        if deckOfCards.count >= initialDisplayCount {
+            displayedCards = Array(deckOfCards.prefix(initialDisplayCount))
+            deckOfCards.removeFirst(initialDisplayCount)
+        }
+    }
 
+    mutating func restartGame() {
+        var newDeck: [Card] = []
+        score = 9
+        for number in Card.Number.allCases {
+            for shape in Card.Shape.allCases {
+                for shading in Card.Shading.allCases {
+                    for color in Card.Color.allCases {
+                        let card = Card(number: number, shape: shape, shading: shading, color: color)
+                        newDeck.append(card)
+                    }
+                }
+            }
+        }
+        deckOfCards = newDeck.shuffled()
         if deckOfCards.count >= initialDisplayCount {
             displayedCards = Array(deckOfCards.prefix(initialDisplayCount))
             deckOfCards.removeFirst(initialDisplayCount)
@@ -54,18 +71,12 @@ struct GameLogic {
     }
 
     mutating func dealAdditionalCards() {
-        // Ensure there are enough cards left in the deck
         guard deckOfCards.count >= 3 else { return }
 
         let newCards = deckOfCards.prefix(3)
         displayedCards.append(contentsOf: newCards)
         deckOfCards.removeFirst(3)
-
         score -= 3
-    }
-
-    mutating func shuffle() {
-        deckOfCards.shuffle()
     }
 
     // MARK: - Selection

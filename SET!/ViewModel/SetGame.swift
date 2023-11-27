@@ -17,9 +17,9 @@ class SetGameViewModel: ObservableObject {
     
     // MARK: - Helper Functions
     
-    func shuffle() {
+    func restartGame() {
         withAnimation {
-            gameLogic.shuffle()
+            gameLogic.restartGame()
         }
     }
     
