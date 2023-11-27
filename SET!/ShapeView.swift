@@ -19,7 +19,7 @@ struct ShapeView: View {
             let insetRect = CGRect(origin: .zero, size: geometry.size).insetBy(dx: lineWidth / 2, dy: lineWidth / 2)
             let path = viewModel.drawPath(for: shape, in: shading == .open ? insetRect : CGRect(origin: .zero, size: geometry.size))
             let fillColor = viewModel.applyColoring(for: color)
-            
+
             if shading == .open {
                 path.stroke(fillColor, lineWidth: lineWidth)
             } else {

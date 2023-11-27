@@ -28,9 +28,9 @@ struct CardView: View {
         }
         .aspectRatio(Constants.cardAspectRatio, contentMode: .fit)
         .onTapGesture {
-            viewModel.select(card: card)
+            viewModel.setGameLogic(card: card)
         }
-        .onAppear{
+        .onAppear {
             print("onAppear: \(viewModel.deckOfCards.count)")
         }
     }
