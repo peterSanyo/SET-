@@ -15,8 +15,10 @@ struct CardView: View {
         ZStack {
             let baseRectangle = RoundedRectangle(cornerRadius: Constants.cornerRadius, style: .continuous)
 
+
             baseRectangle.strokeBorder(lineWidth: card.matchState == .selected ? Constants.selectedLineWidth : Constants.unselectedLineWidth)
                 .background(backgroundForMatchState(card.matchState))
+
 
             VStack {
                 ForEach(0 ..< card.number.rawValue, id: \.self) { _ in

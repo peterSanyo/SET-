@@ -17,68 +17,46 @@ class SetGameViewModel: ObservableObject {
     // MARK: - Helper Functions
     
     func shuffle() {
-        gameLogic.shuffle()
+        withAnimation {
+            gameLogic.shuffle()
+        }
     }
     
     private func createSetGame() {
         gameLogic = GameLogic()
     }
-    
-    private func toggleSelectedCard(_ card: Card) {
-        gameLogic.toggleSelectedCard(card)
-    }
-    
-    private func unselectAllCards() {
-        gameLogic.unselectAllCards()
-    }
-    
-    private func updateMatchState(of card: Card, to newState: Card.MatchState) {
-        gameLogic.updateMatchState(of: card, to: newState)
-    }
 
-    private func checkForValidSetOfCards(_ cards: [Card]) -> Bool {
-        gameLogic.checkForValidSetOfCards(cards)
-    }
-    
-    private func isPropertyConsistentlyUniformOrDistinct<T: Hashable>(keyPath: KeyPath<Card, T>, for cards: [Card]) -> Bool {
-        return gameLogic.isPropertyConsistentlyUniformOrDistinct(keyPath: keyPath, for: cards)
-    }
-    
-    private func handleValidatedSet(_ selectedCards: [Card]) {
-        withAnimation {
-            gameLogic.handleValidatedSet(selectedCards)
-        }
-    }
-    
     // MARK: Set Game Logic
 
     /// Processes the selection of a card and manages the game logic based on the current state of the game.
     ///
-    /// This function performs several tasks:
     /// - Toggles the selection state of the specified card.
     /// - Checks if there are three selected cards.
     /// - If there are three selected cards, it checks if they form a valid set.
     /// - Updates the match state of each selected card depending on whether they form a valid set.
+    /// - NOTE:a second delay in this part of the process here to give visual feedback
     /// - Handles the validated set if the selected cards form a valid set.
-    /// - Resets the selection of cards after processing.
+    /// - Resets the selection of cards after processing. Needed for resetting an unmatched selection of cards
     ///
     /// - Parameter card: The `Card` object to be processed.
     func setGameLogic(card: Card) {
-        toggleSelectedCard(card)
+        gameLogic.toggleSelectedCard(card)
         let selectedCards = deckOfCards.filter { $0.matchState == .selected }
-        
+
         if selectedCards.count == 3 {
-            let isMatch = checkForValidSetOfCards(selectedCards)
+            let isMatch = gameLogic.checkForValidSetOfCards(selectedCards)
             for selectedCard in selectedCards {
-                updateMatchState(of: selectedCard, to: isMatch ? .matched : .mismatched)
+                gameLogic.updateMatchState(of: selectedCard, to: isMatch ? .matched : .mismatched)
             }
             if isMatch {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    self.handleValidatedSet(selectedCards)
+                    withAnimation {
+                        self.gameLogic.handleValidatedSet(selectedCards)
+                    }
                 }
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.unselectAllCards()
+                self.gameLogic.unselectAllCards()
             }
         }
     }
