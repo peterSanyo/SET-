@@ -31,7 +31,6 @@ struct ShapeView: View {
         .minimumScaleFactor(1)
         .multilineTextAlignment(.center)
         .aspectRatio(symbolAspectRatio, contentMode: .fit)
-        //       .rotationEffect(.degrees(card.isMatched ? 360 : 0))
-//        .animation(.spin(duration: 1), value: card.isMatched)
+//        .animation(.spin(duration: 1), value: viewModel.currentlySelected)
     }
 }

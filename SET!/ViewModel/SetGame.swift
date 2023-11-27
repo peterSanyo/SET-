@@ -48,15 +48,20 @@ class SetGameViewModel: ObservableObject {
             for selectedCard in selectedCards {
                 gameLogic.updateMatchState(of: selectedCard, to: isMatch ? .matched : .mismatched)
             }
+            print("deckOfCards1: \(deckOfCards.count)")
+
             if isMatch {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     withAnimation {
                         self.gameLogic.handleValidatedSet(selectedCards)
+                        print("deckOfCards2: \(self.deckOfCards.count)")
                     }
                 }
             }
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.gameLogic.unselectAllCards()
+                print("deckOfCards3: \(self.deckOfCards.count)")
             }
         }
     }

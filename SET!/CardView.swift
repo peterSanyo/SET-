@@ -32,9 +32,6 @@ struct CardView: View {
         .onTapGesture {
             viewModel.setGameLogic(card: card)
         }
-        .onAppear {
-            print("onAppear: \(viewModel.deckOfCards.count)")
-        }
     }
 
     private func backgroundForMatchState(_ matchState: Card.MatchState) -> Color {

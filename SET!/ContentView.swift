@@ -12,9 +12,11 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-                AspectVGrid(setGame.deckOfCards, aspectRatio: 2/3) { card in
-                    CardView(viewModel: setGame, card: card)
-                }
+            AspectVGrid(Array(setGame.deckOfCards.prefix(70)), aspectRatio: 2 / 3) { card in
+                CardView(viewModel: setGame, card: card)
+            }
+            .padding(.bottom)
+
             HStack {
                 Spacer()
                 Text("Score: \(setGame.score)")
@@ -28,6 +30,9 @@ struct ContentView: View {
             }
         }
         .padding()
+        .onAppear {
+            print("onAppear: \(setGame.deckOfCards.count)")
+        }
     }
 }
 
