@@ -20,22 +20,55 @@ struct ContentView: View {
 
             HStack {
                 Spacer()
-                Text("Score: \(setGame.score)")
-                    .font(.title)
+                scoreVisual
                 Spacer()
-                Button("Restart") {
-                    setGame.restartGame()
-                }
+                restartButton
                 Spacer()
-                Button("Deal") {
-                    setGame.dealAdditionalCards()
-                }
+                dealerButton
                 Spacer()
             }
         }
         .padding()
         .onAppear {
             print("onAppear: \(setGame.deckOfCards.count)")
+        }
+    }
+
+    func circleButtonStyle<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        content()
+            .font(.headline.weight(.bold))
+            .foregroundColor(Color.black)
+            .frame(width: 45, height: 45) // Fixed frame size
+            .padding()
+            .background(Circle()
+                .fill(Material.thick))
+            .shadow(color: Color.gray.opacity(0.6), radius: 3)
+    }
+
+    var dealerButton: some View {
+        Button {
+            setGame.dealAdditionalCards()
+        } label: {
+            circleButtonStyle {
+                Text("DEAL")
+            }
+        }
+        .disabled(setGame.deckOfCards.isEmpty)
+    }
+
+    var restartButton: some View {
+        Button {
+            setGame.restartGame()
+        } label: {
+            circleButtonStyle {
+                Image(systemName: "arrow.triangle.2.circlepath")
+            }
+        }
+    }
+
+    var scoreVisual: some View {
+        circleButtonStyle {
+            Text("\(setGame.score)")
         }
     }
 }
