@@ -12,10 +12,9 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            AspectVGrid(Array(setGame.deckOfCards.prefix(30)), aspectRatio: 2 / 3) { card in
+            AspectVGrid(Array(setGame.deckOfCards.prefix(3)), aspectRatio: 2 / 3) { card in
                 CardView(viewModel: setGame, card: card)
             }
-            .padding(.bottom)
 
             HStack {
                 Spacer()
