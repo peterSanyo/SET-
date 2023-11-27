@@ -25,7 +25,11 @@ import SwiftUI
 
 struct GameLogic {
     private(set) var deckOfCards: [Card]
+    private(set) var displayedCards: [Card] = []
     private(set) var score = 0
+
+    private(set) var initialDisplayCount = 12
+    private let amountOfCardsAdded = 3
 
     init() {
         var createdDeck: [Card] = []
@@ -41,8 +45,26 @@ struct GameLogic {
             }
         }
 
-        self.deckOfCards = createdDeck.shuffled()
+        deckOfCards = createdDeck.shuffled()
+
+        if deckOfCards.count >= initialDisplayCount {
+            displayedCards = Array(deckOfCards.prefix(initialDisplayCount))
+            deckOfCards.removeFirst(initialDisplayCount)
+        }
     }
+
+    mutating func dealAdditionalCards() {
+        // Ensure there are enough cards left in the deck
+        guard deckOfCards.count >= 3 else { return }
+
+        let newCards = deckOfCards.prefix(3)
+        displayedCards.append(contentsOf: newCards)
+        deckOfCards.removeFirst(3)
+
+        // Debugging
+        print("Dealt cards: \(newCards.map { $0.id })")
+    }
+
 
     mutating func shuffle() {
         deckOfCards.shuffle()
@@ -55,15 +77,15 @@ struct GameLogic {
     /// If the card is already selected, it will be marked as unselected, and vice versa.
     /// - Parameter card: The `Card` object whose selection state needs to be toggled.
     mutating func toggleSelectedCard(_ card: Card) {
-        if let index = deckOfCards.firstIndex(where: { $0.id == card.id }) {
-            deckOfCards[index].matchState = deckOfCards[index].matchState == .selected ? .unselected : .selected
+        if let index = displayedCards.firstIndex(where: { $0.id == card.id }) {
+            displayedCards[index].matchState = displayedCards[index].matchState == .selected ? .unselected : .selected
         }
     }
 
-    /// Sets the `matchState` of all cards in `deckOfCards` to `.unselected`.
+    /// Sets the `matchState` of all cards in `displayedCards` to `.unselected`.
     mutating func unselectAllCards() {
-        for index in deckOfCards.indices {
-            deckOfCards[index].matchState = .unselected
+        for index in displayedCards.indices {
+            displayedCards[index].matchState = .unselected
         }
     }
 
@@ -75,8 +97,8 @@ struct GameLogic {
     ///   - card: The `Card` object whose match state is to be updated.
     ///   - newState: The new `MatchState` to be assigned to the card.
     mutating func updateMatchState(of card: Card, to newState: Card.MatchState) {
-        if let index = deckOfCards.firstIndex(where: { $0.id == card.id }) {
-            deckOfCards[index].matchState = newState
+        if let index = displayedCards.firstIndex(where: { $0.id == card.id }) {
+            displayedCards[index].matchState = newState
         }
     }
 
@@ -110,12 +132,12 @@ struct GameLogic {
 
     // MARK: - Handling
 
-    /// Removes the matched cards from `deckOfCards` and updates the score.
+    /// Removes the matched cards from `displayedCards` and updates the score.
     ///
     /// - Parameters:
     ///    -  selectedCards : An array of `Card` objects that form a valid set.
     mutating func handleValidatedSet(_ selectedCards: [Card]) {
-        deckOfCards.removeAll { card in
+        displayedCards.removeAll { card in
             selectedCards.contains { selectedCard in
                 selectedCard.id == card.id
             }

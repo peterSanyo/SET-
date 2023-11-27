@@ -13,6 +13,7 @@ class SetGameViewModel: ObservableObject {
     @Published private(set) var currentlySelected: [Card] = []
     var score: Int { gameLogic.score }
     var deckOfCards: [Card] { gameLogic.deckOfCards }
+    var displayedCards: [Card] { gameLogic.displayedCards}
     
     // MARK: - Helper Functions
     
@@ -20,6 +21,10 @@ class SetGameViewModel: ObservableObject {
         withAnimation {
             gameLogic.shuffle()
         }
+    }
+    
+    func dealAdditionalCards() {
+        gameLogic.dealAdditionalCards()
     }
     
     private func createSetGame() {
@@ -41,7 +46,7 @@ class SetGameViewModel: ObservableObject {
     /// - Parameter card: The `Card` object to be processed.
     func setGameLogic(card: Card) {
         gameLogic.toggleSelectedCard(card)
-        let selectedCards = deckOfCards.filter { $0.matchState == .selected }
+        let selectedCards = displayedCards.filter { $0.matchState == .selected }
 
         if selectedCards.count == 3 {
             let isMatch = gameLogic.checkForValidSetOfCards(selectedCards)

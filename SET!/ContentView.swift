@@ -12,7 +12,7 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            AspectVGrid(Array(setGame.deckOfCards.prefix(3)), aspectRatio: 2 / 3) { card in
+            AspectVGrid(setGame.displayedCards, aspectRatio: 2 / 3) { card in
                 CardView(viewModel: setGame, card: card)
             }
 
@@ -24,8 +24,10 @@ struct ContentView: View {
                 Button("Shuffle") {
                     setGame.shuffle()
                 }
-                .buttonStyle(.automatic)
                 Spacer()
+                Button("Deal More Cards") {
+                    setGame.dealAdditionalCards()
+                }
             }
         }
         .padding()
