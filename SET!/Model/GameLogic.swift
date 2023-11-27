@@ -9,20 +9,32 @@ import SwiftUI
 
 /// `GameLogic` manages the core mechanics of the SET game.
 ///
-/// - Properties:
-///   - `deckOfCards`: An array of `Card` objects representing the deck used in the game.
-///   - `displayedCards`: A subset of `deckOfCards` used for display, typically the top 20 cards.
-///   - `score`: The current score in the game.
+/// Properties:
+/// - `deckOfCards`: An array of `Card` objects representing the deck used in the game.
+/// - `displayedCards`: A subset of `deckOfCards` currently displayed to the player.
+/// - `score`: The current score in the game.
+/// - `initialDisplayCount`: The initial number of cards to display at the start of the game.
+/// - `amountOfCardsAdded`: The number of cards to add when dealing additional cards.
 ///
-/// - Methods:
-///   - `init()`: Initializes a new game with a shuffled deck of cards.
-///   - `shuffle()`: Shuffles the `deckOfCards`.
-///   - `toggleCardSelection(card:)`: Toggles the selection state of a given card.
-///   - `resetSelection()`: Resets the selection state of all cards to `.unselected`.
-///   - `updateMatchState(of:to:)`: Updates the match state of a specific card.
-///   - `isValidSetOfCards(cards:)`: Checks if a given set of cards forms a valid set according to the game rules.
-///   - `handleValidSet(selectedCards:)`: Handles actions for a valid set, including score update and removing matched cards from the deck.
-
+/// Initialization:
+/// - `init()`: Initializes a new game with a shuffled deck of cards and sets up the initial displayed cards.
+///
+/// Core Gameplay Methods:
+/// - `restartGame()`: Resets the game to its initial state with a new shuffled deck and resets the score.
+/// - `dealAdditionalCards()`: Adds a specified number of cards to the displayed cards from the deck.
+///
+/// Card Interaction Methods:
+/// - `toggleSelectedCard(card:)`: Toggles the selection state of a given card.
+/// - `updateMatchState(of:to:)`: Updates the match state of a specific card.
+///
+/// Game State Management:
+/// - `unselectAllCards()`: Resets the match state of all displayed cards to `.unselected`.
+/// - `handleValidatedSet(selectedCards:)`: Handles actions for a valid set, including updating the score and removing matched cards from the display.
+///
+/// Validation:
+/// - `isValidSetOfCards(cards:)`: Checks if a given set of cards forms a valid set according to the game rules.
+/// - `isPropertyConsistentlyUniformOrDistinct(keyPath:for:)`: Helper function to determine if the properties of cards are either all uniform or all distinct.
+///
 struct GameLogic {
     private(set) var deckOfCards: [Card]
     private(set) var displayedCards: [Card] = []
@@ -49,6 +61,8 @@ struct GameLogic {
             deckOfCards.removeFirst(initialDisplayCount)
         }
     }
+    
+    // MARK: - Core Gameplay features
 
     mutating func restartGame() {
         var newDeck: [Card] = []
@@ -70,6 +84,12 @@ struct GameLogic {
         }
     }
 
+    /// Deals additional cards from the deck to the displayed cards.
+    ///
+    /// This method adds a predefined number of new cards (3 by default) from the top of the deck to the displayed cards.
+    /// It checks for at least 3 cards in the deck before dealing and  decreases the score by 3 points each time this method is called.
+    ///
+    /// - Returns: Nothing. Modifies the state of `displayedCards` and `deckOfCards`.
     mutating func dealAdditionalCards() {
         guard deckOfCards.count >= 3 else { return }
 
@@ -152,10 +172,5 @@ struct GameLogic {
             }
         }
         score += 3
-    }
-
-    // TODO: Implement a method to deal additional cards if needed
-    private mutating func dealAdditionalCardsIfNeeded() {
-        // Deal additional cards logic
     }
 }
