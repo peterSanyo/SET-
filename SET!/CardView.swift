@@ -15,10 +15,8 @@ struct CardView: View {
         ZStack {
             let baseRectangle = RoundedRectangle(cornerRadius: Constants.cornerRadius, style: .continuous)
 
-
             baseRectangle.strokeBorder(lineWidth: card.matchState == .selected ? Constants.selectedLineWidth : Constants.unselectedLineWidth)
                 .background(backgroundForMatchState(card.matchState))
-
 
             VStack {
                 ForEach(0 ..< card.number.rawValue, id: \.self) { _ in
@@ -29,6 +27,7 @@ struct CardView: View {
             .padding(10)
         }
         .aspectRatio(Constants.cardAspectRatio, contentMode: .fit)
+        .animation(.spin(duration: 1), value: viewModel.currentlySelected)
         .onTapGesture {
             viewModel.setGameLogic(card: card)
         }
@@ -51,8 +50,14 @@ struct CardView: View {
         static let cornerRadius: CGFloat = 12
         static let unselectedLineWidth: CGFloat = 2
         static let selectedLineWidth: CGFloat = 5
-        static let cardAspectRatio: CGFloat = 2 / 3 // Example aspect ratio
-        static let symbolAspectRatio: CGFloat = 1 // Symbol aspect ratio
+        static let cardAspectRatio: CGFloat = 2 / 3
+        static let symbolAspectRatio: CGFloat = 1
+    }
+}
+
+extension Animation {
+    static func spin(duration: TimeInterval) -> Animation {
+        .linear(duration: duration).repeatForever(autoreverses: false)
     }
 }
 

@@ -31,6 +31,5 @@ struct ShapeView: View {
         .minimumScaleFactor(1)
         .multilineTextAlignment(.center)
         .aspectRatio(symbolAspectRatio, contentMode: .fit)
-//        .animation(.spin(duration: 1), value: viewModel.currentlySelected)
     }
 }
