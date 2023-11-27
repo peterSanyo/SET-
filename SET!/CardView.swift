@@ -10,6 +10,8 @@ import SwiftUI
 struct CardView: View {
     @ObservedObject var viewModel: SetGameViewModel
     var card: Card
+    @State private var isAppearing = false
+
 
     var body: some View {
         ZStack {
@@ -27,11 +29,17 @@ struct CardView: View {
             .padding(10)
         }
         .aspectRatio(Constants.cardAspectRatio, contentMode: .fit)
-        .animation(.spin(duration: 1), value: viewModel.currentlySelected)
+//        .animation(.spin(duration: 1), value: viewModel.currentlySelected)
         .onTapGesture {
             viewModel.setGameLogic(card: card)
         }
-        
+        .onAppear {
+            withAnimation(.spring()) {
+                isAppearing = true
+            }
+        }
+        .scaleEffect(isAppearing ? 1 : 0.1)
+        .opacity(isAppearing ? 1 : 0)
     }
 
     private func backgroundForMatchState(_ matchState: Card.MatchState) -> Color {

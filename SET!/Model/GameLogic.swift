@@ -26,7 +26,7 @@ import SwiftUI
 struct GameLogic {
     private(set) var deckOfCards: [Card]
     private(set) var displayedCards: [Card] = []
-    private(set) var score = 0
+    private(set) var score = 9
 
     private(set) var initialDisplayCount = 12
     private let amountOfCardsAdded = 3
@@ -61,10 +61,8 @@ struct GameLogic {
         displayedCards.append(contentsOf: newCards)
         deckOfCards.removeFirst(3)
 
-        // Debugging
-        print("Dealt cards: \(newCards.map { $0.id })")
+        score -= 3
     }
-
 
     mutating func shuffle() {
         deckOfCards.shuffle()
@@ -142,7 +140,7 @@ struct GameLogic {
                 selectedCard.id == card.id
             }
         }
-        score += 1
+        score += 3
     }
 
     // TODO: Implement a method to deal additional cards if needed
