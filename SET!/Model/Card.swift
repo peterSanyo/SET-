@@ -32,6 +32,6 @@ struct Card: Identifiable, Equatable {
     }
 
     enum MatchState {
-        case unselected, selected, matched, mismatched
+        case unselected, selected, matched, mismatched, hinted
     }
 }

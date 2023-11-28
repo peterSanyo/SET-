@@ -61,7 +61,7 @@ struct GameLogic {
             deckOfCards.removeFirst(initialDisplayCount)
         }
     }
-    
+
     // MARK: - Restart Game
 
     mutating func restartGame() {
@@ -83,7 +83,7 @@ struct GameLogic {
             deckOfCards.removeFirst(initialDisplayCount)
         }
     }
-    
+
     // MARK: - Dealing Cards
 
     /// Deals additional cards from the deck to the displayed cards.
@@ -99,7 +99,7 @@ struct GameLogic {
         displayedCards.append(contentsOf: newCards)
         deckOfCards.removeFirst(3)
     }
-    
+
     func setIsAvailable() -> Bool {
         for i in 0..<displayedCards.count {
             for j in (i + 1)..<displayedCards.count {
@@ -113,10 +113,37 @@ struct GameLogic {
         }
         return false
     }
-    
-    mutating func penalise () {
+
+    mutating func penalise() {
         score -= 3
     }
+
+    // MARK: - Hints
+
+    mutating func showHintFor(numberOfCards: Int) {
+        guard let potentialSet = findPotentialSet(), potentialSet.count >= numberOfCards else { return }
+        for index in 0..<numberOfCards {
+            if let cardIndex = displayedCards.firstIndex(where: { $0.id == potentialSet[index].id }) {
+                displayedCards[cardIndex].matchState = .hinted
+            }
+        }
+    }
+    
+    mutating func findPotentialSet() -> [Card]? {
+        for i in 0..<displayedCards.count {
+            for j in (i + 1)..<displayedCards.count {
+                for k in (j + 1)..<displayedCards.count {
+                    let threeCards = [displayedCards[i], displayedCards[j], displayedCards[k]]
+                    if checkForValidSetOfCards(threeCards) {
+                        return threeCards
+                    }
+                }
+            }
+        }
+        return nil 
+    }
+
+
 
     // MARK: - Selection
 

@@ -21,8 +21,10 @@ class SetGameViewModel: ObservableObject {
         gameLogic.restartGame()
     }
     
-    private func createSetGame() {
-        gameLogic = GameLogic()
+    func unselectAllCards() {
+        withAnimation {
+            gameLogic.unselectAllCards()
+        }
     }
 
     // MARK: Set Game Logic
@@ -69,7 +71,7 @@ class SetGameViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Logic of Dealing Cards
+    // MARK: - Dealing Cards
     
     func dealMechanics() {
         if gameLogic.setIsAvailable() {
@@ -78,6 +80,15 @@ class SetGameViewModel: ObservableObject {
         gameLogic.dealAdditionalCards()
     }
     
+    // MARK: - Show Hints
+    
+    func showHint(numberOfCards: Int) {
+            withAnimation {
+                self.gameLogic.showHintFor(numberOfCards: numberOfCards)
+            }
+    }
+
+
     // MARK: - Drawing Shapes
     
     func drawPath(for shape: Card.Shape, in rect: CGRect) -> Path {

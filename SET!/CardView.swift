@@ -66,6 +66,8 @@ struct CardView: View {
             return Color.red.opacity(0.2)
         case .selected:
             return Color.gray.opacity(0.4)
+        case .hinted:
+            return Color.yellow.opacity(0.4)
         default:
             return Color.clear
         }
