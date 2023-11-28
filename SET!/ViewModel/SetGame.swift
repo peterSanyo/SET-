@@ -13,14 +13,12 @@ class SetGameViewModel: ObservableObject {
     @Published private(set) var currentlySelected: [Card] = []
     var score: Int { gameLogic.score }
     var deckOfCards: [Card] { gameLogic.deckOfCards }
-    var displayedCards: [Card] { gameLogic.displayedCards}
+    var displayedCards: [Card] { gameLogic.displayedCards }
     
     // MARK: - Helper Functions
     
     func restartGame() {
-        withAnimation {
-            gameLogic.restartGame()
-        }
+        gameLogic.restartGame()
     }
     
     func dealAdditionalCards() {
@@ -45,27 +43,31 @@ class SetGameViewModel: ObservableObject {
     ///
     /// - Parameter card: The `Card` object to be processed.
     func setGameLogic(card: Card) {
-        gameLogic.toggleSelectedCard(card)
+        withAnimation {
+            gameLogic.toggleSelectedCard(card)
+        }
         let selectedCards = displayedCards.filter { $0.matchState == .selected }
-
+            
         if selectedCards.count == 3 {
             let isMatch = gameLogic.checkForValidSetOfCards(selectedCards)
             for selectedCard in selectedCards {
                 gameLogic.updateMatchState(of: selectedCard, to: isMatch ? .matched : .mismatched)
             }
             print("deckOfCards1: \(deckOfCards.count)")
-
+                
             if isMatch {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     withAnimation {
                         self.gameLogic.handleValidatedSet(selectedCards)
-                        print("deckOfCards2: \(self.deckOfCards.count)")
                     }
+                    print("deckOfCards2: \(self.deckOfCards.count)")
                 }
             }
-
+                
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.gameLogic.unselectAllCards()
+                withAnimation {
+                    self.gameLogic.unselectAllCards()
+                }
                 print("deckOfCards3: \(self.deckOfCards.count)")
             }
         }

@@ -70,7 +70,7 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
                 }
             }
         }
-        return floor(bestLayout.cardSize.width)
+            return floor(bestLayout.cardSize.width)
     }
 
     /// Determines if one layout is better than another based on the area of the cards.

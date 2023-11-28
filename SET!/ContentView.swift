@@ -9,36 +9,48 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var setGame: SetGameViewModel
+    @State private var backgroundAnimationStarts = false
 
     var body: some View {
-        VStack {
-            Text("SET!")
-                .font(.largeTitle)
-            AspectVGrid(setGame.displayedCards, aspectRatio: 2 / 3) { card in
-                CardView(viewModel: setGame, card: card)
-            }
+        ZStack {
+            pulsatingBackground
+            VStack {
+                Text("SET!")
+                    .font(.largeTitle)
+                
+                AspectVGrid(setGame.displayedCards, aspectRatio: 2 / 3) { card in
+                    CardView(viewModel: setGame, card: card)
+                }
 
-            HStack {
-                Spacer()
-                scoreVisual
-                Spacer()
-                restartButton
-                Spacer()
-                dealerButton
-                Spacer()
+                HStack {
+                    Spacer()
+                    scoreVisual
+                    Spacer()
+                    restartButton
+                    Spacer()
+                    dealerButton
+                    Spacer()
+                }
+            }
+            .padding()
+            .onAppear {
+                backgroundAnimationStarts = true
+                print("onAppear: \(setGame.deckOfCards.count)")
             }
         }
-        .padding()
-        .onAppear {
-            print("onAppear: \(setGame.deckOfCards.count)")
-        }
+    }
+
+    private var pulsatingBackground: some View {
+        Color(backgroundAnimationStarts ? Color.gray.opacity(0.4) : Color.gray.opacity(0.2))
+        .animation(Animation.easeInOut(duration: 30).repeatForever(autoreverses: true), value: backgroundAnimationStarts)
+        .ignoresSafeArea()
     }
 
     func circleButtonStyle<Content: View>(@ViewBuilder content: () -> Content) -> some View {
         content()
             .font(.headline.weight(.bold))
             .foregroundColor(Color.black)
-            .frame(width: 45, height: 45) // Fixed frame size
+            .frame(width: 45, height: 45)
             .padding()
             .background(Circle()
                 .fill(Material.thick))
