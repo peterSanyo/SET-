@@ -17,6 +17,7 @@
 		45550FDF2ADD335400AD97F2 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45550FDE2ADD335400AD97F2 /* GameLogic.swift */; };
 		45550FE32ADD342500AD97F2 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45550FE22ADD342500AD97F2 /* SetGame.swift */; };
 		45550FE52ADD35B900AD97F2 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45550FE42ADD35B900AD97F2 /* CardView.swift */; };
+		457B198C2B161D2600D1F132 /* ActionBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457B198B2B161D2600D1F132 /* ActionBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		45550FDE2ADD335400AD97F2 /* GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
 		45550FE22ADD342500AD97F2 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 		45550FE42ADD35B900AD97F2 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		457B198B2B161D2600D1F132 /* ActionBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 			children = (
 				45550FCD2ADD306500AD97F2 /* SET_App.swift */,
 				45550FCF2ADD306500AD97F2 /* ContentView.swift */,
+				457B198B2B161D2600D1F132 /* ActionBarView.swift */,
 				45550FE42ADD35B900AD97F2 /* CardView.swift */,
 				455489892AE00DB200EF47AF /* ShapeView.swift */,
 				45283FBD2B0E2E940027E9A0 /* AspectVGrid.swift */,
@@ -171,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				457B198C2B161D2600D1F132 /* ActionBarView.swift in Sources */,
 				45283FBE2B0E2E940027E9A0 /* AspectVGrid.swift in Sources */,
 				45283FC02B0E2EBF0027E9A0 /* Card.swift in Sources */,
 				45550FD02ADD306500AD97F2 /* ContentView.swift in Sources */,

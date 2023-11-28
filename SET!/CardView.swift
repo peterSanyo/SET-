@@ -4,11 +4,25 @@
 //
 //  Created by Péter Sanyó on 16.10.23.
 //
+/// A SwiftUI View for rendering an individual card in the SET game.
+///
+/// This view is responsible for displaying the visual representation of a card, including its shape, number, shading,
+/// color, and selection state. It uses a `ShapeView` for each symbol on the card and adapts the card's appearance
+/// based on its match state.
+///
+/// Properties:
+/// - `viewModel`: An observable object of `SetGameViewModel` which provides game logic and rendering functions.
+/// - `card`: The `Card` object to be displayed.
+/// - `isAppearing`: A state indicating whether the card is currently appearing in an animation.
+///
+/// The card's appearance changes based on its match state, such as highlighted borders for selected cards or
+/// different background colors for matched or mismatched cards. The view also handles tap gestures to trigger
+/// the SetGame logic related to card selection.
 
 import SwiftUI
 
 struct CardView: View {
-    @ObservedObject var viewModel: SetGameViewModel
+    @ObservedObject var setGame: SetGameViewModel
     @State private var isAppearing = false
     var card: Card
 
@@ -28,7 +42,7 @@ struct CardView: View {
         }
         .onTapGesture {
             withAnimation {
-                viewModel.setGameLogic(card: card)
+                setGame.setGameLogic(card: card)
             }
         }
     }
@@ -40,7 +54,7 @@ struct CardView: View {
             let baseRectangle = RoundedRectangle(cornerRadius: Constants.cornerRadius, style: .continuous)
 
             baseRectangle
-                .fill(colorsForMatchState(card.matchState))
+                .fill(colorForMatchState(card.matchState))
                 .strokeBorder(
                     lineWidth: card.matchState == .selected ? Constants.selectedLineWidth : Constants.unselectedLineWidth)
                 .foregroundColor(Color.white)
@@ -51,14 +65,16 @@ struct CardView: View {
     private var cardContent: some View {
         VStack {
             ForEach(0 ..< card.number.rawValue, id: \.self) { _ in
-                ShapeView(viewModel: viewModel, shape: card.shape, shading: card.shading, color: card.color, symbolAspectRatio: Constants.symbolAspectRatio)
+                ShapeView(setGame: setGame, shape: card.shape, shading: card.shading, color: card.color, symbolAspectRatio: Constants.symbolAspectRatio)
                     .aspectRatio(Constants.symbolAspectRatio, contentMode: .fit)
             }
         }
         .padding(10)
     }
+    
+    // MARK: - UI Logic 
 
-    private func colorsForMatchState(_ matchState: Card.MatchState) -> Color {
+    private func colorForMatchState(_ matchState: Card.MatchState) -> Color {
         switch matchState {
         case .matched:
             return Color.green.opacity(0.2)
@@ -106,14 +122,14 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = SetGameViewModel()
+        let setGame = SetGameViewModel()
         let sampleCard = Card(
             number: .three,
-            shape: .oval,
+            shape: .circle,
             shading: .solid,
             color: .blue
         )
 
-        CardView(viewModel: viewModel, card: sampleCard)
+        CardView(setGame: setGame, card: sampleCard)
     }
 }

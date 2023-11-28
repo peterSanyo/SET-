@@ -4,9 +4,6 @@
 //
 //  Created by Péter Sanyó on 22.11.23.
 //
-
-import SwiftUI
-
 /// A custom SwiftUI view that arranges its children in a grid layout with a specified aspect ratio.
 /// This grid dynamically adjusts the size of each item to fit within the available space.
 ///
@@ -14,6 +11,9 @@ import SwiftUI
 ///   - items: An array of `Identifiable` items to be displayed in the grid.
 ///   - aspectRatio: The aspect ratio to be maintained for each item in the grid.
 ///   - content: A closure that returns the view for each item in the grid.
+
+import SwiftUI
+
 struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
     var items: [Item]
     var aspectRatio: CGFloat = 1
@@ -40,8 +40,11 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
                 }
             }
         }
+        .padding()
     }
 
+    // MARK: - Logic
+    
     /// Calculates the optimal width for each item in the grid based on the available size and the desired aspect ratio.
     ///
     /// - Parameters:
@@ -70,7 +73,7 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
                 }
             }
         }
-            return floor(bestLayout.cardSize.width)
+        return floor(bestLayout.cardSize.width)
     }
 
     /// Determines if one layout is better than another based on the area of the cards.

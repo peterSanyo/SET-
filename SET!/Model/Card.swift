@@ -20,11 +20,11 @@ struct Card: Identifiable, Equatable {
     }
 
     enum Shape: CaseIterable, Hashable {
-        case diamond, squiggle, oval
+        case diamond, square, circle
     }
 
     enum Shading: CaseIterable, Hashable {
-        case solid, striped, open
+        case solid, semi, open
     }
 
     enum Color: CaseIterable, Hashable {

@@ -3,29 +3,33 @@
 //
 //  Created by Péter Sanyó on 16.10.23.
 //
+/// SetGame.swift
+/// SET!
+///
+/// Created by Péter Sanyó on 16.10.23.
+///
+/// `SetGameViewModel` is a ViewModel class that encapsulates the logic and state of the SET! card game.
+/// It interacts with the `GameLogic` model.
+///
+/// Key functionalities:
+/// - Manages card selection and match validation process, including visual feedback delay for matches.
+/// - Restarting and updating the game state.
+/// - Dealing mechanics for adding new cards to the game.
+/// - Offering hints to the player.
+/// - Drawing and coloring card shapes based on their properties.
+/// - Applying shading to card shapes.
+///
+/// This ViewModel acts as the intermediary between the game's View layer and the underlying `GameLogic`, ensuring
+/// that the View layer remains decoupled from the game logic and state management.
 
 import SwiftUI
 
 class SetGameViewModel: ObservableObject {
-    // MARK: - Properties
-
     @Published var gameLogic = GameLogic()
     @Published private(set) var currentlySelected: [Card] = []
     var score: Int { gameLogic.score }
     var deckOfCards: [Card] { gameLogic.deckOfCards }
     var displayedCards: [Card] { gameLogic.displayedCards }
-    
-    // MARK: - Helper Functions
-    
-    func restartGame() {
-        gameLogic.restartGame()
-    }
-    
-    func unselectAllCards() {
-        withAnimation {
-            gameLogic.unselectAllCards()
-        }
-    }
 
     // MARK: Set Game Logic
 
@@ -71,8 +75,18 @@ class SetGameViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Dealing Cards
+    // MARK: - Helper Functions
     
+    func restartGame() {
+        gameLogic.restartGame()
+    }
+    
+    func unselectAllCards() {
+        withAnimation {
+            gameLogic.unselectAllCards()
+        }
+    }
+
     func dealMechanics() {
         if gameLogic.setIsAvailable() {
             gameLogic.penalise()
@@ -80,25 +94,22 @@ class SetGameViewModel: ObservableObject {
         gameLogic.dealAdditionalCards()
     }
     
-    // MARK: - Show Hints
-    
     func showHint(numberOfCards: Int) {
-            withAnimation {
-                self.gameLogic.showHintFor(numberOfCards: numberOfCards)
-            }
+        withAnimation {
+            self.gameLogic.showHintFor(numberOfCards: numberOfCards)
+        }
     }
-
-
+    
     // MARK: - Drawing Shapes
     
     func drawPath(for shape: Card.Shape, in rect: CGRect) -> Path {
         switch shape {
         case .diamond:
             return createDiamondPath(in: rect)
-        case .squiggle:
+        case .square:
             return rectanglePath(in: rect)
-        case .oval:
-            return ovalPath(in: rect)
+        case .circle:
+            return circlePath(in: rect)
         }
     }
     
@@ -116,7 +127,7 @@ class SetGameViewModel: ObservableObject {
         return Path(rect)
     }
     
-    private func ovalPath(in rect: CGRect) -> Path {
+    private func circlePath(in rect: CGRect) -> Path {
         return Path(ellipseIn: rect)
     }
     
@@ -135,7 +146,7 @@ class SetGameViewModel: ObservableObject {
     func applyShadingOpacity(for shading: Card.Shading) -> Double {
         switch shading {
         case .solid: return 1
-        case .striped: return 0.5
+        case .semi: return 0.5
         case .open: return 0.0
         }
     }

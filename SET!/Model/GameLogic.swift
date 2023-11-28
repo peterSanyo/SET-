@@ -4,9 +4,6 @@
 //
 //  Created by Péter Sanyó on 16.10.23.
 //
-
-import SwiftUI
-
 /// `GameLogic` manages the core mechanics of the SET game.
 ///
 /// Properties:
@@ -35,11 +32,16 @@ import SwiftUI
 /// - `isValidSetOfCards(cards:)`: Checks if a given set of cards forms a valid set according to the game rules.
 /// - `isPropertyConsistentlyUniformOrDistinct(keyPath:for:)`: Helper function to determine if the properties of cards are either all uniform or all distinct.
 ///
+/// Hint Mechanism:
+/// - `showHintFor(numberOfCards:)`: Highlights a specified number of cards that potentially form a valid set.
+/// - `findPotentialSet()`: Searches for a potential valid set among the displayed cards.
+
+import SwiftUI
+
 struct GameLogic {
     private(set) var deckOfCards: [Card]
     private(set) var displayedCards: [Card] = []
     private(set) var score = 9
-
     private(set) var initialDisplayCount = 12
     private let amountOfCardsAdded = 3
 
@@ -118,33 +120,6 @@ struct GameLogic {
         score -= 3
     }
 
-    // MARK: - Hints
-
-    mutating func showHintFor(numberOfCards: Int) {
-        guard let potentialSet = findPotentialSet(), potentialSet.count >= numberOfCards else { return }
-        for index in 0..<numberOfCards {
-            if let cardIndex = displayedCards.firstIndex(where: { $0.id == potentialSet[index].id }) {
-                displayedCards[cardIndex].matchState = .hinted
-            }
-        }
-    }
-    
-    mutating func findPotentialSet() -> [Card]? {
-        for i in 0..<displayedCards.count {
-            for j in (i + 1)..<displayedCards.count {
-                for k in (j + 1)..<displayedCards.count {
-                    let threeCards = [displayedCards[i], displayedCards[j], displayedCards[k]]
-                    if checkForValidSetOfCards(threeCards) {
-                        return threeCards
-                    }
-                }
-            }
-        }
-        return nil 
-    }
-
-
-
     // MARK: - Selection
 
     /// Toggles the selection state of a card in the game.
@@ -205,7 +180,7 @@ struct GameLogic {
         return uniqueValues.count == 1 || uniqueValues.count == cards.count
     }
 
-    // MARK: - Handling
+    // MARK: - Set Handling
 
     /// Removes the matched cards from `displayedCards` and updates the score.
     ///
@@ -218,5 +193,39 @@ struct GameLogic {
             }
         }
         score += 3
+    }
+
+    // MARK: - Hint Mechanism
+
+    /// Highlights a number of cards that form a potential valid set.
+    ///
+    /// This method is used to provide hints to the player. It updates the match state of the specified number of cards
+    /// from a potential valid set to `.hinted`. If no valid set is found, no action is taken.
+    /// - Parameter numberOfCards: The number of cards to highlight as a hint.
+    mutating func showHintFor(numberOfCards: Int) {
+        guard let potentialSet = findPotentialSet(), potentialSet.count >= numberOfCards else { return }
+        for index in 0..<numberOfCards {
+            if let cardIndex = displayedCards.firstIndex(where: { $0.id == potentialSet[index].id }) {
+                displayedCards[cardIndex].matchState = .hinted
+            }
+        }
+    }
+
+    /// This method iterates through the displayed cards to find a valid set according to the game rules.
+    ///
+    /// If a valid set is found, it returns the cards forming the set; otherwise, it returns `nil`.
+    /// - Returns: An array of `Card` objects that form a valid set, or `nil` if no set is found.
+    mutating func findPotentialSet() -> [Card]? {
+        for i in 0..<displayedCards.count {
+            for j in (i + 1)..<displayedCards.count {
+                for k in (j + 1)..<displayedCards.count {
+                    let threeCards = [displayedCards[i], displayedCards[j], displayedCards[k]]
+                    if checkForValidSetOfCards(threeCards) {
+                        return threeCards
+                    }
+                }
+            }
+        }
+        return nil
     }
 }

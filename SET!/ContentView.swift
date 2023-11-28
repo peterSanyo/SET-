@@ -4,6 +4,17 @@
 //
 //  Created by Péter Sanyó on 16.10.23.
 //
+///
+/// `ContentView` is the main SwiftUI view for the SET! card game. It serves as the entry point to the user interface,
+/// displaying the current state of the game managed by `SetGameViewModel`.
+///
+/// The view consists of:
+/// - A pulsating background
+/// - A title bar displaying the game's name and Score.
+/// - An `AspectVGrid` that arranges the displayed cards in a grid layout with a specified aspect ratio.
+/// - Each card is represented by a `CardView` which displays the card's properties and handles user interaction.
+/// - An `ActionBarView` which provides controls for game actions like dealing new cards, restarting the game, and showing hints.
+
 
 import SwiftUI
 
@@ -15,105 +26,32 @@ struct ContentView: View {
         ZStack {
             pulsatingBackground
             VStack {
-                Text("SET!")
-                    .font(.largeTitle)
-
+                header
                 AspectVGrid(setGame.displayedCards, aspectRatio: 2 / 3) { card in
-                    CardView(viewModel: setGame, card: card)
+                    CardView(setGame: setGame, card: card)
                 }
 
-                actionButtons
+                ActionBarView(setGame: setGame)
             }
-            .padding()
             .onAppear {
                 backgroundAnimationStarts = true
             }
         }
     }
-
+    private var header: some View {
+        HStack {
+            Text("SET!")
+            Spacer()
+            Text("Score: \(setGame.score)")
+        }
+        .font(.title)
+        .padding()
+    }
+    
     private var pulsatingBackground: some View {
         Color(backgroundAnimationStarts ? Color.gray.opacity(0.4) : Color.gray.opacity(0.2))
             .animation(Animation.easeInOut(duration: 30).repeatForever(autoreverses: true), value: backgroundAnimationStarts)
             .ignoresSafeArea()
-    }
-
-    private var actionButtons: some View {
-        HStack {
-            Spacer()
-            hintButton
-            Spacer()
-            restartButton
-            Spacer()
-            dealerButton
-            Spacer()
-        }
-    }
-
-    var dealerButton: some View {
-        CircleButton {
-            setGame.dealMechanics()
-        } label: { Text("DEAL") }
-            .disabled(setGame.deckOfCards.isEmpty)
-    }
-
-    var restartButton: some View {
-        CircleButton {
-            setGame.restartGame()
-        } label: { Image(systemName: "arrow.triangle.2.circlepath") }
-    }
-
-    var hintButton: some View {
-        CircleButton {
-            showAndResetHint()
-        } label: {
-            Image(systemName: "questionmark")
-                .font(.headline.weight(.bold))
-                .foregroundColor(Color.black)
-        }
-    }
-
-    private func showAndResetHint() {
-        withAnimation {
-            setGame.showHint(numberOfCards: 3)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            setGame.unselectAllCards()
-        }
-    }
-
-    private struct CircleButton<Label: View>: View {
-        let action: () -> Void
-        let label: () -> Label
-        @Environment(\.isEnabled) var isEnabled
-
-        init(action: @escaping () -> Void, @ViewBuilder label: @escaping () -> Label) {
-            self.action = action
-            self.label = label
-        }
-
-        var body: some View {
-            Button(action: action) { label().buttonDesign() }
-        }
-    }
-
-    struct ButtonDesign: ViewModifier {
-        @Environment(\.isEnabled) var isEnabled
-
-        func body(content: Content) -> some View {
-            content
-                .font(.headline.weight(.bold))
-                .foregroundColor(isEnabled ? Color.black : Color.gray)
-                .frame(width: 45, height: 45)
-                .padding()
-                .background(Circle().fill(isEnabled ? Material.thick : Material.thin))
-                .shadow(color: isEnabled ? Color.gray.opacity(0.6) : Color.clear, radius: 3)
-        }
-    }
-}
-
-extension View {
-    func buttonDesign() -> some View {
-        modifier(ContentView.ButtonDesign())
     }
 }
 
