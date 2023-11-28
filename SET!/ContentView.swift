@@ -59,7 +59,7 @@ struct ContentView: View {
 
     var dealerButton: some View {
         Button {
-            setGame.dealAdditionalCards()
+            setGame.dealMechanics()
         } label: {
             circleButtonStyle {
                 Text("DEAL")

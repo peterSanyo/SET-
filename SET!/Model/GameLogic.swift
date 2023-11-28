@@ -62,7 +62,7 @@ struct GameLogic {
         }
     }
     
-    // MARK: - Core Gameplay features
+    // MARK: - Restart Game
 
     mutating func restartGame() {
         var newDeck: [Card] = []
@@ -83,6 +83,8 @@ struct GameLogic {
             deckOfCards.removeFirst(initialDisplayCount)
         }
     }
+    
+    // MARK: - Dealing Cards
 
     /// Deals additional cards from the deck to the displayed cards.
     ///
@@ -96,6 +98,23 @@ struct GameLogic {
         let newCards = deckOfCards.prefix(3)
         displayedCards.append(contentsOf: newCards)
         deckOfCards.removeFirst(3)
+    }
+    
+    func setIsAvailable() -> Bool {
+        for i in 0..<displayedCards.count {
+            for j in (i + 1)..<displayedCards.count {
+                for k in (j + 1)..<displayedCards.count {
+                    let threeCards = [displayedCards[i], displayedCards[j], displayedCards[k]]
+                    if checkForValidSetOfCards(threeCards) {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
+    
+    mutating func penalise () {
         score -= 3
     }
 
@@ -138,7 +157,7 @@ struct GameLogic {
     /// A set is valid if the properties of the cards are either all the same or all different.
     /// - Parameter cards: An array of `Card` objects to be validated.
     /// - Returns: `true` if the set of cards is valid; otherwise, `false`.
-    mutating func checkForValidSetOfCards(_ cards: [Card]) -> Bool {
+    func checkForValidSetOfCards(_ cards: [Card]) -> Bool {
         guard cards.count == 3 else { return false }
 
         return isPropertyConsistentlyUniformOrDistinct(keyPath: \.number, for: cards) &&

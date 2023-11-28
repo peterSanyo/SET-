@@ -21,10 +21,6 @@ class SetGameViewModel: ObservableObject {
         gameLogic.restartGame()
     }
     
-    func dealAdditionalCards() {
-        gameLogic.dealAdditionalCards()
-    }
-    
     private func createSetGame() {
         gameLogic = GameLogic()
     }
@@ -71,6 +67,15 @@ class SetGameViewModel: ObservableObject {
                 print("deckOfCards3: \(self.deckOfCards.count)")
             }
         }
+    }
+    
+    // MARK: - Logic of Dealing Cards
+    
+    func dealMechanics() {
+        if gameLogic.setIsAvailable() {
+            gameLogic.penalise()
+        }
+        gameLogic.dealAdditionalCards()
     }
     
     // MARK: - Drawing Shapes
