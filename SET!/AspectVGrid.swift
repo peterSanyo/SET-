@@ -4,6 +4,9 @@
 //
 //  Created by Péter Sanyó on 22.11.23.
 //
+
+import SwiftUI
+
 /// A custom SwiftUI view that arranges its children in a grid layout with a specified aspect ratio.
 /// This grid dynamically adjusts the size of each item to fit within the available space.
 ///
@@ -11,9 +14,6 @@
 ///   - items: An array of `Identifiable` items to be displayed in the grid.
 ///   - aspectRatio: The aspect ratio to be maintained for each item in the grid.
 ///   - content: A closure that returns the view for each item in the grid.
-
-import SwiftUI
-
 struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
     var items: [Item]
     var aspectRatio: CGFloat = 1

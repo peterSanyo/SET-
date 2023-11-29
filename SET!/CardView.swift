@@ -4,6 +4,9 @@
 //
 //  Created by Péter Sanyó on 16.10.23.
 //
+
+import SwiftUI
+
 /// A SwiftUI View for rendering an individual card in the SET game.
 ///
 /// This view is responsible for displaying the visual representation of a card, including its shape, number, shading,
@@ -18,9 +21,6 @@
 /// The card's appearance changes based on its match state, such as highlighted borders for selected cards or
 /// different background colors for matched or mismatched cards. The view also handles tap gestures to trigger
 /// the SetGame logic related to card selection.
-
-import SwiftUI
-
 struct CardView: View {
     @ObservedObject var setGame: SetGameViewModel
     @State private var isAppearing = false
@@ -71,8 +71,8 @@ struct CardView: View {
         }
         .padding(10)
     }
-    
-    // MARK: - UI Logic 
+
+    // MARK: - UI Logic
 
     private func colorForMatchState(_ matchState: Card.MatchState) -> Color {
         switch matchState {

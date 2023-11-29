@@ -4,6 +4,9 @@
 //
 //  Created by Péter Sanyó on 18.10.23.
 //
+
+import SwiftUI
+
 /// This view is responsible for displaying a single shape that represents a card in the SET game.
 /// It uses the properties of a `Card` (shape, shading, color) to create a corresponding visual representation.
 ///
@@ -15,9 +18,6 @@
 /// - `symbolAspectRatio`: The aspect ratio for the symbol to maintain its proportions.
 ///
 /// The view uses a `GeometryReader` to adapt the shape to the available space and maintain aspect ratio.
-
-import SwiftUI
-
 struct ShapeView: View {
     @ObservedObject var setGame: SetGameViewModel
     var shape: Card.Shape

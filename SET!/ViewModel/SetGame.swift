@@ -3,11 +3,9 @@
 //
 //  Created by Péter Sanyó on 16.10.23.
 //
-/// SetGame.swift
-/// SET!
-///
-/// Created by Péter Sanyó on 16.10.23.
-///
+
+import SwiftUI
+
 /// `SetGameViewModel` is a ViewModel class that encapsulates the logic and state of the SET! card game.
 /// It interacts with the `GameLogic` model.
 ///
@@ -21,9 +19,6 @@
 ///
 /// This ViewModel acts as the intermediary between the game's View layer and the underlying `GameLogic`, ensuring
 /// that the View layer remains decoupled from the game logic and state management.
-
-import SwiftUI
-
 class SetGameViewModel: ObservableObject {
     @Published var gameLogic = GameLogic()
     @Published private(set) var currentlySelected: [Card] = []

@@ -4,7 +4,9 @@
 //
 //  Created by Péter Sanyó on 16.10.23.
 //
-///
+
+import SwiftUI
+
 /// `ContentView` is the main SwiftUI view for the SET! card game. It serves as the entry point to the user interface,
 /// displaying the current state of the game managed by `SetGameViewModel`.
 ///
@@ -14,10 +16,6 @@
 /// - An `AspectVGrid` that arranges the displayed cards in a grid layout with a specified aspect ratio.
 /// - Each card is represented by a `CardView` which displays the card's properties and handles user interaction.
 /// - An `ActionBarView` which provides controls for game actions like dealing new cards, restarting the game, and showing hints.
-
-
-import SwiftUI
-
 struct ContentView: View {
     @ObservedObject var setGame: SetGameViewModel
     @State private var backgroundAnimationStarts = false

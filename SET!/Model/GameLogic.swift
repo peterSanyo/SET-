@@ -4,6 +4,10 @@
 //
 //  Created by Péter Sanyó on 16.10.23.
 //
+
+
+import SwiftUI
+
 /// `GameLogic` manages the core mechanics of the SET game.
 ///
 /// Properties:
@@ -35,9 +39,6 @@
 /// Hint Mechanism:
 /// - `showHintFor(numberOfCards:)`: Highlights a specified number of cards that potentially form a valid set.
 /// - `findPotentialSet()`: Searches for a potential valid set among the displayed cards.
-
-import SwiftUI
-
 struct GameLogic {
     private(set) var deckOfCards: [Card]
     private(set) var displayedCards: [Card] = []
@@ -91,7 +92,7 @@ struct GameLogic {
     /// Deals additional cards from the deck to the displayed cards.
     ///
     /// This method adds a predefined number of new cards (3 by default) from the top of the deck to the displayed cards.
-    /// It checks for at least 3 cards in the deck before dealing and  decreases the score by 3 points each time this method is called.
+    /// It checks for at least 3 cards in the deck before dealing and  decreases the score by 3 points , if a set was possible across the displayed cards.
     ///
     /// - Returns: Nothing. Modifies the state of `displayedCards` and `deckOfCards`.
     mutating func dealAdditionalCards() {
@@ -101,7 +102,9 @@ struct GameLogic {
         displayedCards.append(contentsOf: newCards)
         deckOfCards.removeFirst(3)
     }
-
+    
+    ///  Checks whether there is a possible set in displayedCards
+    /// - Returns: true if yes, otherwise returns false 
     func setIsAvailable() -> Bool {
         for i in 0..<displayedCards.count {
             for j in (i + 1)..<displayedCards.count {

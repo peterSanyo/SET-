@@ -4,6 +4,10 @@
 //
 //  Created by Péter Sanyó on 28.11.23.
 //
+
+
+import SwiftUI
+
 /// A SwiftUI View representing the action bar in the SET game.
 ///
 /// This view contains the primary action buttons used in the game, including buttons for dealing cards, restarting the game,
@@ -14,9 +18,6 @@
 ///
 /// The action bar is designed as a horizontal stack  of three key buttons - restart, deal  and hint. Each button
 /// is customized for its specific purpose and is integrated with the game logic to perform corresponding actions.
-
-import SwiftUI
-
 struct ActionBarView: View {
     @ObservedObject var setGame: SetGameViewModel
 
@@ -59,8 +60,7 @@ struct ActionBarView: View {
         }
     }
 
-    /// This struct defines a reusable button style used in the ActionBarView. It applies a consistent design for all buttons
-    /// and is adaptable based on the button's enabled state.
+    /// This struct defines a reusable button style used in the ActionBarView, which are adaptable based on the button's enabled state.
     private struct CircleButton<Label: View>: View {
         let action: () -> Void
         let label: () -> Label
