@@ -41,7 +41,7 @@ import SwiftUI
 /// - `findPotentialSet()`: Searches for a potential valid set among the displayed cards.
 struct GameLogic {
     private(set) var deckOfCards: [Card]
-    private(set) var displayedCards: [Card] = []
+    private(set)var displayedCards: [Card] = []
     private(set) var score = 9
     private(set) var initialDisplayCount = 12
     private let amountOfCardsAdded = 3
@@ -230,5 +230,19 @@ struct GameLogic {
             }
         }
         return nil
+    }
+}
+
+
+// MARK: - Testing
+
+extension GameLogic {
+    // Test setup method
+    mutating func setupTestScenarioWithValidSet() {
+        let card1 = Card(number: .one, shape: .diamond, shading: .solid, color: .red)
+        let card2 = Card(number: .two, shape: .square, shading: .semi, color: .green)
+        let card3 = Card(number: .three, shape: .circle, shading: .open, color: .blue)
+
+        displayedCards = [card1, card2, card3]
     }
 }

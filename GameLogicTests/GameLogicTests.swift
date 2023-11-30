@@ -5,23 +5,37 @@
 //  Created by Péter Sanyó on 30.11.23.
 //
 
-import XCTest
 @testable import SET_
+import XCTest
 
-final class GameLogicTests: XCTestCase {
-    
-    var gameLogic: GameLogic!
-    
-    func testDeckInitialization() {
+@MainActor class GameLogicTests: XCTestCase {
+    func testDeckInitialization() throws {
         // Arrange
-        let overallCards = 81
-        let displayedCardsCount = 12
-        let expectedDeckCount = overallCards - displayedCardsCount
+        let expectedTotalOfCards = 81
+        let expectedDisplayedCardsCount = 12
+        let expectedDeckCount = expectedTotalOfCards - expectedDisplayedCardsCount
         
         // Act
         let gameLogic = GameLogic()
         
-        //Arrange
+        // Assert
+        XCTAssertEqual(gameLogic.deckOfCards.count + gameLogic.displayedCards.count, expectedTotalOfCards, "There should be a total of \(expectedTotalOfCards) cards involved in the game")
         XCTAssertEqual(gameLogic.deckOfCards.count, expectedDeckCount, "Deck should be initialized with \(expectedDeckCount) cards.")
+        XCTAssertEqual(gameLogic.displayedCards.count, expectedDisplayedCardsCount, "There should be \(expectedDisplayedCardsCount) cards displayed")
     }
+    
+    func testDealAdditionalCards() throws {
+        // Arrange
+        var gameLogic = GameLogic()
+        let initialDeckCount = gameLogic.deckOfCards.count
+        let initialDisplayedCount = gameLogic.displayedCards.count
+
+        // Act
+        gameLogic.dealAdditionalCards()
+
+        // Assert
+        XCTAssertEqual(gameLogic.deckOfCards.count, initialDeckCount - 3, "Deck should decrease by 3 cards")
+        XCTAssertEqual(gameLogic.displayedCards.count, initialDisplayedCount + 3, "Displayed cards should increase by 3")
+    }
+
 }
