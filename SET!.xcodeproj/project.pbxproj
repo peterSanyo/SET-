@@ -18,7 +18,18 @@
 		45550FE32ADD342500AD97F2 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45550FE22ADD342500AD97F2 /* SetGame.swift */; };
 		45550FE52ADD35B900AD97F2 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45550FE42ADD35B900AD97F2 /* CardView.swift */; };
 		457B198C2B161D2600D1F132 /* ActionBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457B198B2B161D2600D1F132 /* ActionBarView.swift */; };
+		459365BD2B189D2500E78B67 /* GameLogicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459365BC2B189D2500E78B67 /* GameLogicTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		459365BE2B189D2500E78B67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45550FC22ADD306500AD97F2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 45550FC92ADD306500AD97F2;
+			remoteInfo = "SET!";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		45283FBD2B0E2E940027E9A0 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
@@ -33,10 +44,19 @@
 		45550FE22ADD342500AD97F2 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 		45550FE42ADD35B900AD97F2 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		457B198B2B161D2600D1F132 /* ActionBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBarView.swift; sourceTree = "<group>"; };
+		459365BA2B189D2400E78B67 /* GameLogicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GameLogicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		459365BC2B189D2500E78B67 /* GameLogicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogicTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		45550FC72ADD306500AD97F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		459365B72B189D2400E78B67 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -50,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				45550FCC2ADD306500AD97F2 /* SET! */,
+				459365BB2B189D2500E78B67 /* GameLogicTests */,
 				45550FCB2ADD306500AD97F2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				45550FCA2ADD306500AD97F2 /* SET!.app */,
+				459365BA2B189D2400E78B67 /* GameLogicTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -104,6 +126,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		459365BB2B189D2500E78B67 /* GameLogicTests */ = {
+			isa = PBXGroup;
+			children = (
+				459365BC2B189D2500E78B67 /* GameLogicTests.swift */,
+			);
+			path = GameLogicTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -124,6 +154,24 @@
 			productReference = 45550FCA2ADD306500AD97F2 /* SET!.app */;
 			productType = "com.apple.product-type.application";
 		};
+		459365B92B189D2400E78B67 /* GameLogicTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 459365C22B189D2500E78B67 /* Build configuration list for PBXNativeTarget "GameLogicTests" */;
+			buildPhases = (
+				459365B62B189D2400E78B67 /* Sources */,
+				459365B72B189D2400E78B67 /* Frameworks */,
+				459365B82B189D2400E78B67 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				459365BF2B189D2500E78B67 /* PBXTargetDependency */,
+			);
+			name = GameLogicTests;
+			productName = GameLogicTests;
+			productReference = 459365BA2B189D2400E78B67 /* GameLogicTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -131,11 +179,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					45550FC92ADD306500AD97F2 = {
 						CreatedOnToolsVersion = 14.3;
+					};
+					459365B92B189D2400E78B67 = {
+						CreatedOnToolsVersion = 15.0.1;
+						TestTargetID = 45550FC92ADD306500AD97F2;
 					};
 				};
 			};
@@ -153,6 +205,7 @@
 			projectRoot = "";
 			targets = (
 				45550FC92ADD306500AD97F2 /* SET! */,
+				459365B92B189D2400E78B67 /* GameLogicTests */,
 			);
 		};
 /* End PBXProject section */
@@ -164,6 +217,13 @@
 			files = (
 				45550FD52ADD306600AD97F2 /* Preview Assets.xcassets in Resources */,
 				45550FD22ADD306600AD97F2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		459365B82B189D2400E78B67 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,7 +246,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		459365B62B189D2400E78B67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				459365BD2B189D2500E78B67 /* GameLogicTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		459365BF2B189D2500E78B67 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 45550FC92ADD306500AD97F2 /* SET! */;
+			targetProxy = 459365BE2B189D2500E78B67 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		45550FD62ADD306600AD97F2 /* Debug */ = {
@@ -361,6 +437,49 @@
 			};
 			name = Release;
 		};
+		459365C02B189D2500E78B67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S98C3BL8SB;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PeterSanyo.GameLogicTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SET!.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SET!";
+			};
+			name = Debug;
+		};
+		459365C12B189D2500E78B67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S98C3BL8SB;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = PeterSanyo.GameLogicTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SET!.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SET!";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -378,6 +497,15 @@
 			buildConfigurations = (
 				45550FD92ADD306600AD97F2 /* Debug */,
 				45550FDA2ADD306600AD97F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		459365C22B189D2500E78B67 /* Build configuration list for PBXNativeTarget "GameLogicTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				459365C02B189D2500E78B67 /* Debug */,
+				459365C12B189D2500E78B67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
