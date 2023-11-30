@@ -21,6 +21,7 @@ The assignment involved creating a Set card game app from scratch, using SwiftUI
 - Modularity, Readability, Reusability, Maintainability
 
 ## Folder Structure
+'''
 SET!
     ├── GameLogicTests
     │   └── GameLogicTests.swift
@@ -42,7 +43,7 @@ SET!
     │   ├── ShapeView.swift
     │   └── ViewModel
     │       └── SetGame.swift 
-
+'''
 
 ![Screenshot 2023-11-30 at 13 25 25](https://github.com/peterSanyo/SET-/assets/125472114/520d7e13-d17a-44a7-9645-7abfade90d3c)
 ![Screenshot 2023-11-30 at 13 25 46](https://github.com/peterSanyo/SET-/assets/125472114/c1a787c2-7779-434b-aeb1-947627c1ac90)
