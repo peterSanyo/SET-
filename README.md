@@ -14,9 +14,8 @@ The assignment involved creating a Set card game app from scratch, using SwiftUI
 - Dynamic proportional UI adjustments for varying numbers of cards on screen.
 - Adherence to MVC design patterns.
 - Unit tests
-- Efficient card dealing and replacement logic.
+- Card dealing and replacement logic.
 - Handling card selection state and validation of Set matches.
-- Dynamic adaptation and animation of UI elements based on game state.
 - Implementing custom shapes for card symbols.
 - Modularity, Readability, Reusability, Maintainability
 
